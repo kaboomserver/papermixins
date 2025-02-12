@@ -4,6 +4,9 @@
   "package": "pw.kaboom.papermixins.mixin",
   "required": true,
   "mixins": [
+    "execute_vanilla_only.BukkitBrigForwardingMapMixin",
+    "execute_vanilla_only.CommandsMixin",
+    "execute_vanilla_only.ExecuteCommandMixin"
   ],
   "injectors": {
     "defaultRequire": 1
