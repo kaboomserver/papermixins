@@ -1,0 +1,8 @@
+{
+  "id": "kaboom-paper-mixins",
+  "version": "master",
+
+  "mixins": [
+    "kaboom-paper-mixins.mixins.json"
+  ]
+}

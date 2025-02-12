@@ -1,0 +1,11 @@
+{
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_21",
+  "package": "pw.kaboom.papermixins.mixin",
+  "required": true,
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
