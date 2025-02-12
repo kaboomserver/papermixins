@@ -7,6 +7,10 @@ plugins {
 group = "pw.kaboom"
 version = "master"
 
+base {
+    archivesName = "paper-mixins"
+}
+
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.spongepowered.org/maven/")
