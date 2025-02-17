@@ -23,17 +23,18 @@ public abstract class CommandsMixin {
     private CommandDispatcher<CommandSourceStack> dispatcher;
 
     // This is a bit fragile as we depend on Paper utilizing ArrayList<>() only here, but it's fine for now.
-    @Inject(method = "<init>", at = @At(value = "INVOKE",
-            target = "Ljava/util/ArrayList;<init>(Ljava/util/Collection;)V", unsafe = true))
-    private void init$arrayList(final Commands.CommandSelection selection, final CommandBuildContext context,
+    @Inject(method = "<init>(Lnet/minecraft/commands/Commands$CommandSelection;Lnet/minecraft/commands/CommandBuildContext;Z)V",
+            at = @At(value = "INVOKE", target = "Ljava/util/ArrayList;<init>(Ljava/util/Collection;)V", unsafe = true))
+    private void init$arrayList(final Commands.CommandSelection selection, final CommandBuildContext context, final boolean modern,
                                 final CallbackInfo ci) {
         for (final CommandNode<CommandSourceStack> node : this.dispatcher.getRoot().getChildren()) {
             BrigadierConstants.VANILLA_DISPATCHER.getRoot().addChild(node);
         }
     }
 
-    @WrapOperation(method = "<init>", at = @At(value = "INVOKE",
-            target = "Lcom/mojang/brigadier/CommandDispatcher;setConsumer(Lcom/mojang/brigadier/ResultConsumer;)V"))
+    @WrapOperation(method = "<init>(Lnet/minecraft/commands/Commands$CommandSelection;Lnet/minecraft/commands/CommandBuildContext;Z)V",
+            at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;setConsumer"
+                    + "(Lcom/mojang/brigadier/ResultConsumer;)V"))
     private void init$setConsumer(final CommandDispatcher<CommandSourceStack> instance,
                                   final ResultConsumer<CommandSourceStack> consumer, final Operation<Void> original) {
         // Use same consumer for our vanilla dispatcher
