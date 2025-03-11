@@ -5,6 +5,7 @@
   "required": true,
   "plugin": "pw.kaboom.papermixins.mixin.PaperMixinsMixinPlugin",
   "mixins": [
+    "feat.disable_fileconfiguration_saving.FileConfigurationMixin",
     "feat.disable_persistent_data.GameProfileCacheMixin",
     "feat.disable_persistent_data.StoredUserListMixin",
     "feat.disable_username_validation.CraftPlayerProfileMixin",
