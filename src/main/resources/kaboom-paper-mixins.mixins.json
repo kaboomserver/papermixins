@@ -4,7 +4,10 @@
   "package": "pw.kaboom.papermixins.mixin",
   "required": true,
   "mixins": [
-    "disable_fileconfiguration_saving.FileConfigurationMixin",
+    "disable_configuration_saving.FileConfigurationMixin",
+    "disable_configuration_saving.server_config.ConfigurationsMixin",
+    "disable_configuration_saving.server_config.SettingsMixin",
+    "disable_configuration_saving.server_config.SpigotConfigMixin",
     "disable_username_validation.CraftPlayerProfileMixin",
     "disable_username_validation.PlayerListMixin",
     "execute_vanilla_only.BukkitBrigForwardingMapMixin",
