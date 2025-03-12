@@ -14,14 +14,8 @@ import java.util.UUID;
 public abstract class PlayerListMixin {
     @WrapOperation(
             method = "getPlayerStats(Ljava/util/UUID;Ljava/lang/String;)Lnet/minecraft/stats/ServerStatsCounter;",
-            at = @At(
-                    value = "NEW",
-                    target = "(Ljava/io/File;Ljava/lang/String;)Ljava/io/File;"
-            )
-    )
-    private File getPlayerStats$newFile(final File parent,
-                                        final String child,
-                                        final Operation<File> original,
+            at = @At(value = "NEW", target = "(Ljava/io/File;Ljava/lang/String;)Ljava/io/File;"))
+    private File getPlayerStats$newFile(final File parent, final String child, final Operation<File> original,
                                         @Local(argsOnly = true) final UUID id) {
         return original.call(parent, id + ".json");
     }
