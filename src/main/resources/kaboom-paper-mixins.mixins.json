@@ -5,6 +5,7 @@
   "required": true,
   "mixins": [
     "disable_username_validation.CraftPlayerProfileMixin",
+    "disable_username_validation.PlayerListMixin",
     "execute_vanilla_only.BukkitBrigForwardingMapMixin",
     "execute_vanilla_only.CommandsMixin",
     "execute_vanilla_only.ExecuteCommandMixin"
