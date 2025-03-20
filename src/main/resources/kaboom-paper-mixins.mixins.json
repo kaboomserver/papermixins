@@ -4,13 +4,13 @@
   "package": "pw.kaboom.papermixins.mixin",
   "required": true,
   "mixins": [
-    "disable_persistent_data.GameProfileCacheMixin",
-    "disable_persistent_data.StoredUserListMixin",
-    "disable_username_validation.CraftPlayerProfileMixin",
-    "disable_username_validation.PlayerListMixin",
-    "execute_vanilla_only.BukkitBrigForwardingMapMixin",
-    "execute_vanilla_only.CommandsMixin",
-    "execute_vanilla_only.ExecuteCommandMixin"
+    "feat.disable_persistent_data.GameProfileCacheMixin",
+    "feat.disable_persistent_data.StoredUserListMixin",
+    "feat.disable_username_validation.CraftPlayerProfileMixin",
+    "feat.disable_username_validation.PlayerListMixin",
+    "feat.execute_vanilla_only.BukkitBrigForwardingMapMixin",
+    "feat.execute_vanilla_only.CommandsMixin",
+    "feat.execute_vanilla_only.ExecuteCommandMixin"
   ],
   "injectors": {
     "defaultRequire": 1

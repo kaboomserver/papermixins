@@ -1,4 +1,4 @@
-package pw.kaboom.papermixins.mixin.disable_persistent_data;
+package pw.kaboom.papermixins.mixin.feat.disable_persistent_data;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

@@ -1,4 +1,4 @@
-package pw.kaboom.papermixins.mixin.disable_username_validation;
+package pw.kaboom.papermixins.mixin.feat.disable_username_validation;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

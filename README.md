@@ -6,7 +6,7 @@ The mod is created for the Kaboom server.
 
 ## Compiling
 
-Use [Gradle](https://gradle.org/) to compile the plugin.
+Use [Gradle](https://gradle.org/) to compile the mod.
 For security reasons, the gradle wrapper is not provided. You must use a system-wide installation of Gradle.
 ```bash
 gradle build

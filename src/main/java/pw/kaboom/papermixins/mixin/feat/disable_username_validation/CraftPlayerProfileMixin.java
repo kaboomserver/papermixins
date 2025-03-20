@@ -1,4 +1,4 @@
-package pw.kaboom.papermixins.mixin.disable_username_validation;
+package pw.kaboom.papermixins.mixin.feat.disable_username_validation;
 
 import com.destroystokyo.paper.profile.CraftPlayerProfile;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

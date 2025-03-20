@@ -1,4 +1,4 @@
-package pw.kaboom.papermixins.mixin.execute_vanilla_only;
+package pw.kaboom.papermixins.mixin.feat.execute_vanilla_only;
 
 import com.mojang.brigadier.tree.RootCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
