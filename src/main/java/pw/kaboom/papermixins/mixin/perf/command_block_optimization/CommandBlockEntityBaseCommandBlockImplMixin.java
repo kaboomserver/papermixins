@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pw.kaboom.papermixins.mixin.perf.command_block_optimization.accessor.CommandBlockEntityAccessor;
 
 @Mixin(targets = "net.minecraft.world.level.block.entity.CommandBlockEntity$1")
-public class CommandBlockEntityBaseCommandBlockImplMixin {
+public abstract class CommandBlockEntityBaseCommandBlockImplMixin {
     @Shadow
     @Final
     CommandBlockEntity this$0;
