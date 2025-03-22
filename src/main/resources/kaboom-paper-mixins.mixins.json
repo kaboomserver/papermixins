@@ -3,6 +3,7 @@
   "compatibilityLevel": "JAVA_21",
   "package": "pw.kaboom.papermixins.mixin",
   "required": true,
+  "plugin": "pw.kaboom.papermixins.mixin.PaperMixinsMixinPlugin",
   "mixins": [
     "feat.disable_persistent_data.GameProfileCacheMixin",
     "feat.disable_persistent_data.StoredUserListMixin",
