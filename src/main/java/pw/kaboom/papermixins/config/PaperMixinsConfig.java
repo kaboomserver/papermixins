@@ -20,9 +20,9 @@ public final class PaperMixinsConfig {
 
         try (final FileReader reader = new FileReader(file)) {
             properties.load(reader);
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             return;
-        } catch (IOException e) {
+        } catch (final IOException e) {
             LOGGER.warn("Failed to read config:", e);
             return;
         }
