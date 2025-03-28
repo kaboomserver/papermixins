@@ -14,7 +14,7 @@ public abstract class LibraryLoaderMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/lang/Class;getClassLoader()Ljava/lang/ClassLoader;"))
-    private ClassLoader createLoader$getClassLoader(Class<?> instance, Operation<ClassLoader> original) {
+    private ClassLoader createLoader$getClassLoader(final Class<?> instance, final Operation<ClassLoader> original) {
         return new PluginMixinSeparationClassLoader(original.call(instance), null);
     }
 }

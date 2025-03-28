@@ -60,7 +60,7 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
     }
 
     @Override
-    protected URL findResource(String name) {
+    protected URL findResource(final String name) {
         return isIllegal(name) ? null : super.findResource(name);
     }
 
