@@ -4,3 +4,5 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+include("plugin-mixin-bootstrapper", "plugin-mixin-interop")

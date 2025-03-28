@@ -1,0 +1,2 @@
+[libraries]
+fabric-mixins = { group = "net.fabricmc", name = "sponge-mixin", version = "0.15.2+mixin.0.8.7" }
