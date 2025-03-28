@@ -12,6 +12,7 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.fabricmc.net/")
     maven("https://repo.essentialsx.net/releases/")
+    maven("https://maven.enginehub.org/repo/")
 }
 
 dependencies {
@@ -31,6 +32,7 @@ dependencies {
     compileOnly("io.github.llamalad7:mixinextras-common:0.4.1")
 
     compileOnly("net.essentialsx:EssentialsX:2.21.0") { isTransitive = false }
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.13.0") { isTransitive = false }
 }
 
 tasks {
