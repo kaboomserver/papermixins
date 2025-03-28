@@ -71,7 +71,6 @@ public final class PluginMixinLoader {
         final List<URL> grandFatheredUrls = new ObjectArrayList<>();
         int loadedMixinCount = 0;
 
-
         while (jarEntryIterator.hasNext()) {
             final JarEntry entry = jarEntryIterator.next();
             final String name = entry.getName();
@@ -143,7 +142,7 @@ public final class PluginMixinLoader {
         LOGGER.info("Loaded {} plugin mixins, targeting {} unique plugins.", loadedMixinCount, PLUGIN_MIXINS.size());
     }
 
-    public static @Nullable List<LoadedPluginMixin> getPluginMixins(String pluginName) {
+    public static @Nullable List<LoadedPluginMixin> getPluginMixins(final String pluginName) {
         synchronized (LOCK) {
             if (APPLIED) {
                 LOGGER.error("Uh-oh! Mixins were requested for plugin {}, but we already applied mixins...", pluginName);
