@@ -171,13 +171,11 @@ public final class Bootstrapper extends MixinServiceAbstract
 
     @Override
     public Class<?> findClass(final String name) throws ClassNotFoundException {
-        System.out.println("findClass " + name);
         return this.getClass().getClassLoader().loadClass(name);
     }
 
     @Override
     public Class<?> findClass(final String name, final boolean initialize) throws ClassNotFoundException {
-        System.out.println("findClass " + name + " initialize " + initialize);
         return Class.forName(name, initialize, PARENT);
     }
 
@@ -188,13 +186,11 @@ public final class Bootstrapper extends MixinServiceAbstract
 
     @Override
     public ClassNode getClassNode(final String name) throws ClassNotFoundException, IOException {
-        System.out.println("getClassNode " + name);
         return getClassNode(name, false);
     }
 
     @Override
     public ClassNode getClassNode(final String name, final boolean runTransformers) throws ClassNotFoundException, IOException {
-        System.out.println("getClassNode " + name + " runTransformers " + runTransformers);
         return getClassNode(name, runTransformers, 0);
     }
 
@@ -216,12 +212,8 @@ public final class Bootstrapper extends MixinServiceAbstract
     @Override
     public ClassNode getClassNode(final String name, final boolean runTransformers, final int readerFlags)
             throws ClassNotFoundException, IOException {
-        System.out.println("getClassNode " + name);
-
         final String binaryName = name.replace('/', '.');
         final String resourceName = name.replace('.', '/') + ".class";
-
-        System.out.println("...and then getClassNode " + binaryName);
 
         ClassNode node = CLASS_NODE_CACHE.get(binaryName);
         if (node != null) return node;
@@ -335,7 +327,6 @@ public final class Bootstrapper extends MixinServiceAbstract
     public void offer(final IMixinInternal internal) {
         if (internal instanceof final IMixinTransformerFactory transformerFactory) {
             this.mixinTransformer = transformerFactory.createTransformer();
-            System.out.println("Mixin transformer is now available");
         }
     }
 }
