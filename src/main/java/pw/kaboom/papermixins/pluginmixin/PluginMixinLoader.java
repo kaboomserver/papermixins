@@ -106,7 +106,7 @@ public final class PluginMixinLoader {
 
                 final ClassNode classNode = new ClassNode(ASM.API_VERSION);
                 final PluginMixinClassVisitor pluginMixinClassVisitor = new PluginMixinClassVisitor(classNode);
-                // TODO: Do we need to retrieve the class file from the class loader instead of the jar file for remapping?
+
                 try (final InputStream entryInputStream = jarFile.getInputStream(entry)) {
                     new ClassReader(entryInputStream).accept(pluginMixinClassVisitor, 0);
 
