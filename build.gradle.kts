@@ -22,6 +22,8 @@ dependencies {
     includeInJar(libs.fabric.mixins)
 
     includeInJar(project(":plugin-mixin-bootstrapper"))
+    includeInJar(libs.mixinextras.common)
+
     implementation(project(":plugin-mixin-interop"))
 
     compileOnly("io.github.llamalad7:mixinextras-common:0.4.1")

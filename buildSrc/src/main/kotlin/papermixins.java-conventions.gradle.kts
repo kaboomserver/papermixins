@@ -1,3 +1,7 @@
+import java.util.jar.JarEntry
+import java.util.jar.JarInputStream
+
+
 plugins {
     id("java-library")
     id("checkstyle")
@@ -10,9 +14,13 @@ val includeInJar by configurations.creating {
     isTransitive = false
 }
 
+val copyServices by configurations.creating {
+    isTransitive = false
+}
+
 configurations {
     compileClasspath {
-        extendsFrom(includeInJar)
+        extendsFrom(includeInJar, copyServices)
     }
 }
 
@@ -26,7 +34,10 @@ java {
 }
 
 tasks.processResources {
-    dependsOn(includeInJar)
+    dependsOn(includeInJar, copyServices)
 
     includeInJar.forEach { file -> from(file.path) { rename { "META-INF/jars/${file.name}" } } }
+    copyServices.forEach { file ->
+        from(zipTree(file).matching { include("META-INF/services/") })
+    }
 }

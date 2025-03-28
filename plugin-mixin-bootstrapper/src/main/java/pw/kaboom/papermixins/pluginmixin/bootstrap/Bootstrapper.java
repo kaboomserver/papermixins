@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.launch.MixinBootstrap;
@@ -86,6 +87,7 @@ public final class Bootstrapper extends MixinServiceAbstract
         CONFIG_OBJECT.add("mixins", mixinsArray);
 
         MixinBootstrap.init();
+        MixinExtrasBootstrap.init();
         Mixins.addConfiguration(INJECTED_MIXIN_CONFIG_NAME);
         return instance;
     }
