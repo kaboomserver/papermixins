@@ -10,7 +10,6 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.launch.platform.container.IContainerHandle;
 import org.spongepowered.asm.logging.ILogger;
-import org.spongepowered.asm.logging.LoggerAdapterJava;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -36,7 +35,7 @@ public final class Bootstrapper extends MixinServiceAbstract
     private static final List<String> PLATFORM_AGENTS =
             Collections.singletonList("org.spongepowered.asm.launch.platform.MixinPlatformAgentDefault");
     private static final String INJECTED_MIXIN_CONFIG_NAME = "config.json";
-    private static final String ID = "papermixins$pluginmixin";
+    public static final String ID = "papermixins$pluginmixin";
     private static URLClassLoader PARENT;
     private static URLClassLoader UNMODIFIED_PARENT;
     private static final Map<String, ClassNode> CLASS_NODE_CACHE = new ConcurrentHashMap<>();
@@ -316,7 +315,7 @@ public final class Bootstrapper extends MixinServiceAbstract
 
     @Override
     protected ILogger createLogger(final String name) {
-        return new LoggerAdapterJava(name);
+        return new LoggerAdapterSLF4J(PARENT, name);
     }
 
     @Override

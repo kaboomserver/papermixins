@@ -7,4 +7,5 @@ dependencies {
     copyServices(libs.mixinextras.common)
 
     compileOnly(project(":plugin-mixin-interop"))
+    compileOnly(libs.slf4j.api)
 }
