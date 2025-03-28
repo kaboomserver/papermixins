@@ -52,11 +52,11 @@ public abstract class CommandgcMixin {
             slice = @Slice(
                     from = @At(value = "INVOKE", target = "Lorg/bukkit/Chunk;getTileEntities()[Lorg/bukkit/block/BlockState;")
             ))
-    private void run$tl(final CommandSource instance,
-                        final String key,
-                        final Object[] args,
-                        final Operation<Void> original,
-                        final @Local World world) {
+    private void run$sendTl(final CommandSource instance,
+                            final String key,
+                            final Object[] args,
+                            final Operation<Void> original,
+                            final @Local World world) {
         if (key.equals("gcWorld")) {
             final ServerLevel handle = ((CraftWorld) world).getHandle();
 
