@@ -41,7 +41,7 @@ public final class Bootstrapper extends MixinServiceAbstract
     private static final Map<String, ClassNode> CLASS_NODE_CACHE = new ConcurrentHashMap<>();
     private final Map<BlackBoardKey, Object> properties = new ConcurrentHashMap<>();
     private final Map<String, BlackBoardKey> blackBored = new ConcurrentHashMap<>();
-    private static Set<String> TARGETS;
+    private static final Set<String> TARGETS = new HashSet<>();
     private static final JsonObject CONFIG_OBJECT = new JsonObject();
     private IMixinTransformer mixinTransformer;
     private static Bootstrapper instance;
@@ -75,7 +75,6 @@ public final class Bootstrapper extends MixinServiceAbstract
                                                 final List<LoadedPluginMixin> mixinNodes) {
         UNMODIFIED_PARENT = new URLClassLoader(new URL[]{parentUrl}, parent.getParent());
         PARENT = parent;
-        TARGETS = new HashSet<>();
 
         final JsonArray mixinsArray = new JsonArray();
         for (final LoadedPluginMixin mixinNode : mixinNodes) {
