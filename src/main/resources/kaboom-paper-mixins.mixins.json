@@ -16,6 +16,7 @@
     "feat.execute_vanilla_only.CommandsMixin",
     "feat.execute_vanilla_only.ExecuteCommandMixin",
     "feat.plugin_mixins.CraftServerMixin",
+    "feat.plugin_mixins.LibraryLoaderMixin",
     "feat.plugin_mixins.PluginClassLoaderMixin",
     "feat.plugin_mixins.SpigotPluginProviderMixin",
     "perf.block_state_no_copy.CraftChunkMixin",
