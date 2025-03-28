@@ -1,4 +1,4 @@
-package pw.kaboom.papermixins.pluginmixin.mixins;
+package pw.kaboom.papermixins.pluginmixin.mixins.perf.gc_optimization;
 
 import com.earth2me.essentials.CommandSource;
 import com.earth2me.essentials.commands.Commandgc;
