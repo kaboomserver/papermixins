@@ -6,12 +6,13 @@ import com.llamalad7.mixinextras.sugar.Local;
 import io.papermc.paper.plugin.provider.entrypoint.DependencyContext;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.PluginClassLoader;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import pw.kaboom.papermixins.pluginmixin.PluginMixinSeparationClassLoader;
 import pw.kaboom.papermixins.pluginmixin.PluginMixinLoader;
+import pw.kaboom.papermixins.pluginmixin.PluginMixinSeparationClassLoader;
 import pw.kaboom.papermixins.pluginmixin.interop.IPluginMixinBootstrapper;
 
 import java.io.File;
@@ -31,6 +32,11 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
     @Unique
     private IPluginMixinBootstrapper papermixins$pluginMixinBootstrapper;
 
+    @Unique
+    private void papermixins$accessLoadUrl(final URL url) {
+        super.addURL(url);
+    }
+
     @Inject(method = "<init>", at = @At(
             value = "INVOKE",
             target = "Ljava/lang/Class;forName(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;"))
@@ -45,7 +51,7 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
         if (!(parent instanceof final PluginMixinSeparationClassLoader ourClassLoader)) return;
 
         for (final URL grandFatheredUrl : PluginMixinLoader.GRAND_FATHERED_URLS) {
-            accessLoadUrl(grandFatheredUrl);
+            papermixins$accessLoadUrl(grandFatheredUrl);
         }
 
         try {
@@ -71,10 +77,5 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
         final byte[] asByteArray = original.call(in);
         if (this.papermixins$pluginMixinBootstrapper == null) return asByteArray;
         return this.papermixins$pluginMixinBootstrapper.transformClassBytes(binaryName, asByteArray);
-    }
-
-    @Unique
-    private void accessLoadUrl(final URL url) {
-        super.addURL(url);
     }
 }
