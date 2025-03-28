@@ -15,8 +15,10 @@ public abstract class FaweMixin {
             method = "lambda$setupMemoryListener$2",
             at = @At(
                     value = "INVOKE",
-                    target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;)V"))
-    private static void setupMemoryListener$warnAboutLowMemory(Logger instance, String s, Operation<Void> original) {
-        
+                    target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;)V"),
+            require = 0)
+    private static void setupMemoryListener$warnAboutLowMemory(final Logger instance, final String s,
+                                                               final Operation<Void> original) {
+
     }
 }
