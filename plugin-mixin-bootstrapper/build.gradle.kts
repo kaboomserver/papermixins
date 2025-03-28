@@ -4,5 +4,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.fabric.mixins)
+    copyServices(libs.mixinextras.common)
+
     compileOnly(project(":plugin-mixin-interop"))
 }

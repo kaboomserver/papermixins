@@ -24,7 +24,8 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
     }
 
     private static boolean isIllegal(final String attemptedLoad) {
-        return attemptedLoad.contains("org/spongepowered/asm") || attemptedLoad.contains("org.spongepowered.asm");
+        return attemptedLoad.contains("org/spongepowered/asm") || attemptedLoad.contains("org.spongepowered.asm")
+                || attemptedLoad.contains("com/llamalad7/mixinextras") || attemptedLoad.contains("com.llamalad7.mixinextras");
     }
 
     private static void separateWithClassNotFound(final String attemptedLoad) throws ClassNotFoundException {
