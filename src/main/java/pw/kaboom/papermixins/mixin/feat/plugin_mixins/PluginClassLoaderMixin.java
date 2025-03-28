@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
@@ -44,7 +45,8 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
                                      final JarFile jarFile,
                                      final DependencyContext dependencyContext,
                                      final CallbackInfo ci)
-            throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+            throws ClassNotFoundException, NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException, MalformedURLException {
         if (!(parent instanceof final PluginMixinSeparationClassLoader ourClassLoader)) return;
 
         for (final URL grandFatheredUrl : PluginMixinLoader.GRAND_FATHERED_URLS) {
@@ -53,8 +55,11 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
         }
 
         final Class<?> bootstrapperClass = Class.forName("pw.kaboom.papermixins.pluginmixin.bootstrap.Bootstrapper", true, this);
-        final Method initMethod = bootstrapperClass.getDeclaredMethod("init", URLClassLoader.class, List.class);
-        this.pluginMixinBootstrapper = (IPluginMixinBootstrapper) initMethod.invoke(null, this, ourClassLoader.mixins);
+        final Method initMethod = bootstrapperClass.getDeclaredMethod("init", URLClassLoader.class, URL.class, List.class);
+        this.pluginMixinBootstrapper = (IPluginMixinBootstrapper) initMethod.invoke(null,
+                this,
+                file.toURI().toURL(),
+                ourClassLoader.mixins);
     }
 
     @WrapOperation(
