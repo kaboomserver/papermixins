@@ -36,15 +36,19 @@ public final class Bootstrapper extends MixinServiceAbstract
             Collections.singletonList("org.spongepowered.asm.launch.platform.MixinPlatformAgentDefault");
     private static final String INJECTED_MIXIN_CONFIG_NAME = "config.json";
     public static final String ID = "papermixins$pluginmixin";
-    private static URLClassLoader PARENT;
-    private static URLClassLoader UNMODIFIED_PARENT;
+
     private static final Map<String, ClassNode> CLASS_NODE_CACHE = new ConcurrentHashMap<>();
-    private final Map<BlackBoardKey, Object> properties = new ConcurrentHashMap<>();
-    private final Map<String, BlackBoardKey> blackBored = new ConcurrentHashMap<>();
     private static final Set<String> TARGETS = new HashSet<>();
     private static final JsonObject CONFIG_OBJECT = new JsonObject();
-    private IMixinTransformer mixinTransformer;
+
+    private static URLClassLoader PARENT;
+    private static URLClassLoader UNMODIFIED_PARENT;
+
     private static Bootstrapper instance;
+
+    private IMixinTransformer mixinTransformer;
+    private final Map<BlackBoardKey, Object> properties = new ConcurrentHashMap<>();
+    private final Map<String, BlackBoardKey> blackBored = new ConcurrentHashMap<>();
 
     static {
         // TODO: Make gradle set the compatibility level here
