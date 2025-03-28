@@ -16,12 +16,9 @@ import pw.kaboom.papermixins.pluginmixin.interop.IPluginMixinBootstrapper;
 
 import java.io.File;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
 import java.util.List;
 import java.util.jar.JarFile;
 
@@ -32,7 +29,7 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
     }
 
     @Unique
-    private IPluginMixinBootstrapper pluginMixinBootstrapper;
+    private IPluginMixinBootstrapper papermixins$pluginMixinBootstrapper;
 
     @Inject(method = "<init>", at = @At(
             value = "INVOKE",
@@ -44,22 +41,24 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
                                      final ClassLoader libraryLoader,
                                      final JarFile jarFile,
                                      final DependencyContext dependencyContext,
-                                     final CallbackInfo ci)
-            throws ClassNotFoundException, NoSuchMethodException,
-            InvocationTargetException, IllegalAccessException, MalformedURLException {
+                                     final CallbackInfo ci) {
         if (!(parent instanceof final PluginMixinSeparationClassLoader ourClassLoader)) return;
 
         for (final URL grandFatheredUrl : PluginMixinLoader.GRAND_FATHERED_URLS) {
-            PluginMixinLoader.LOGGER.warn("Grandfathering {}", grandFatheredUrl);
             accessLoadUrl(grandFatheredUrl);
         }
 
-        final Class<?> bootstrapperClass = Class.forName("pw.kaboom.papermixins.pluginmixin.bootstrap.Bootstrapper", true, this);
-        final Method initMethod = bootstrapperClass.getDeclaredMethod("init", URLClassLoader.class, URL.class, List.class);
-        this.pluginMixinBootstrapper = (IPluginMixinBootstrapper) initMethod.invoke(null,
-                this,
-                file.toURI().toURL(),
-                ourClassLoader.mixins);
+        try {
+            final Class<?> bootstrapperClass = Class.forName("pw.kaboom.papermixins.pluginmixin.bootstrap.Bootstrapper", true, this);
+            final Method initMethod = bootstrapperClass.getDeclaredMethod("init", URLClassLoader.class, URL.class, List.class);
+            this.papermixins$pluginMixinBootstrapper =
+                    (IPluginMixinBootstrapper) initMethod.invoke(null,
+                            this,
+                            file.toURI().toURL(),
+                            ourClassLoader.mixins);
+        } catch (final Exception e) {
+            PluginMixinLoader.LOGGER.error("Failed to invoke PluginMixin bootstrapper, not applying mixins", e);
+        }
     }
 
     @WrapOperation(
@@ -70,10 +69,8 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
                                          final Operation<byte[]> original,
                                          @Local(argsOnly = true) final String binaryName) {
         final byte[] asByteArray = original.call(in);
-        if (pluginMixinBootstrapper == null) return asByteArray;
-        final byte[] possiblyTransformedBytes = pluginMixinBootstrapper.transformClassBytes(binaryName, asByteArray);
-        if (!Arrays.equals(asByteArray, possiblyTransformedBytes)) System.out.println("Transformed " + binaryName);
-        return possiblyTransformedBytes;
+        if (this.papermixins$pluginMixinBootstrapper == null) return asByteArray;
+        return this.papermixins$pluginMixinBootstrapper.transformClassBytes(binaryName, asByteArray);
     }
 
     @Unique
