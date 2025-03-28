@@ -37,6 +37,7 @@ public final class Bootstrapper extends MixinServiceAbstract
     private static final String INJECTED_MIXIN_CONFIG_NAME = "config.json";
     private static final String ID = "papermixins$pluginmixin";
     private static URLClassLoader PARENT;
+    private static URLClassLoader UNMODIFIED_PARENT;
     private static final Map<String, ClassNode> CLASS_NODE_CACHE = new ConcurrentHashMap<>();
     private final Map<BlackBoardKey, Object> properties = new ConcurrentHashMap<>();
     private final Map<String, BlackBoardKey> blackBored = new ConcurrentHashMap<>();
@@ -68,7 +69,10 @@ public final class Bootstrapper extends MixinServiceAbstract
         return true;
     }
 
-    public static IPluginMixinBootstrapper init(final URLClassLoader parent, final List<LoadedPluginMixin> mixinNodes) {
+    public static IPluginMixinBootstrapper init(final URLClassLoader parent,
+                                                final URL parentUrl,
+                                                final List<LoadedPluginMixin> mixinNodes) {
+        UNMODIFIED_PARENT = new URLClassLoader(new URL[]{parentUrl}, parent.getParent());
         PARENT = parent;
         TARGETS = new HashSet<>();
 
@@ -195,7 +199,7 @@ public final class Bootstrapper extends MixinServiceAbstract
     }
 
     private static InputStream findClassBytesRecursive(String name) {
-        ClassLoader loader = PARENT;
+        ClassLoader loader = UNMODIFIED_PARENT;
         InputStream stream = null;
         while (loader != null && (stream = loader.getResourceAsStream(name)) == null) {
             loader = loader.getParent();
@@ -234,13 +238,18 @@ public final class Bootstrapper extends MixinServiceAbstract
 
     @Override
     public byte[] transformClassBytes(final String classBinaryName, final byte[] originalBytes) {
-        CLASS_NODE_CACHE.put(classBinaryName, readClassBytes(originalBytes));
-        if (!(TARGETS.contains(classBinaryName))) return originalBytes;
-        final byte[] transformedBytes = this.mixinTransformer.transformClass(
-                MixinEnvironment.getEnvironment(MixinEnvironment.Phase.DEFAULT),
-                classBinaryName,
-                originalBytes);
-        CLASS_NODE_CACHE.put(classBinaryName, readClassBytes(transformedBytes));
+        final boolean runTransform = TARGETS.contains(classBinaryName);
+        final byte[] transformedBytes = runTransform ?
+                this.mixinTransformer.transformClass(
+                        MixinEnvironment.getEnvironment(MixinEnvironment.Phase.DEFAULT),
+                        classBinaryName,
+                        originalBytes)
+                : originalBytes;
+
+        if (runTransform || !CLASS_NODE_CACHE.containsKey(classBinaryName)) {
+            CLASS_NODE_CACHE.put(classBinaryName, readClassBytes(transformedBytes));
+        }
+
         return transformedBytes;
     }
 
