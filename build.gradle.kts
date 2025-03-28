@@ -22,13 +22,15 @@ dependencies {
     includeInJar(libs.fabric.mixins)
 
     includeInJar(project(":plugin-mixin-bootstrapper"))
+
+    annotationProcessor(libs.mixinextras.common)
     includeInJar(libs.mixinextras.common)
 
     implementation(project(":plugin-mixin-interop"))
 
     compileOnly("io.github.llamalad7:mixinextras-common:0.4.1")
 
-    compileOnly("net.essentialsx:EssentialsX:2.20.1") { isTransitive = false }
+    compileOnly("net.essentialsx:EssentialsX:2.21.0") { isTransitive = false }
 }
 
 tasks {

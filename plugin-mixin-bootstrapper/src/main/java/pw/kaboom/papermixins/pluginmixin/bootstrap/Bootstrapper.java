@@ -52,6 +52,7 @@ public final class Bootstrapper extends MixinServiceAbstract
         CONFIG_OBJECT.addProperty("minVersion", "0.8");
         CONFIG_OBJECT.addProperty("compatibilityLevel", "JAVA_21");
         CONFIG_OBJECT.addProperty("required", true);
+        CONFIG_OBJECT.addProperty("plugin", "pw.kaboom.papermixins.pluginmixin.bootstrap.Bootstrapper");
 
         final JsonObject injectors = new JsonObject();
         injectors.addProperty("defaultRequire", 1);
@@ -87,7 +88,6 @@ public final class Bootstrapper extends MixinServiceAbstract
         CONFIG_OBJECT.add("mixins", mixinsArray);
 
         MixinBootstrap.init();
-        MixinExtrasBootstrap.init();
         Mixins.addConfiguration(INJECTED_MIXIN_CONFIG_NAME);
         return instance;
     }
@@ -249,7 +249,7 @@ public final class Bootstrapper extends MixinServiceAbstract
 
     @Override
     public void onLoad(final String mixinPackage) {
-
+        MixinExtrasBootstrap.init();
     }
 
     @Override
