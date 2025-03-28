@@ -55,7 +55,7 @@ public final class PluginMixinLoader {
         final URLConnection urlConnection;
         try {
             urlConnection = absoluteURL.openConnection();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new IllegalStateException("Failed to open a connection to JAR file", e);
         }
         if (!(urlConnection instanceof final JarURLConnection jarURLConnection))
@@ -86,7 +86,7 @@ public final class PluginMixinLoader {
 
                 try {
                     pathUrl = libraryPath.toUri().toURL();
-                } catch (MalformedURLException e) {
+                } catch (final MalformedURLException e) {
                     throw new IllegalStateException("Path is not valid for a URL", e);
                 }
 

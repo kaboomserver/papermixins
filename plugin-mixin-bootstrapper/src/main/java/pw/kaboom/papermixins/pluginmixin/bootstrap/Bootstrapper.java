@@ -198,7 +198,7 @@ public final class Bootstrapper extends MixinServiceAbstract
         return getClassNode(name, runTransformers, 0);
     }
 
-    private static InputStream findClassBytesRecursive(String name) {
+    private static InputStream findClassBytesRecursive(final String name) {
         ClassLoader loader = UNMODIFIED_PARENT;
         InputStream stream = null;
         while (loader != null && (stream = loader.getResourceAsStream(name)) == null) {

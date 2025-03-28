@@ -10,7 +10,7 @@ import pw.kaboom.papermixins.pluginmixin.PluginMixinLoader;
 @Mixin(CraftServer.class)
 public abstract class CraftServerMixin {
     @Inject(method = "loadPlugins", at = @At("TAIL"))
-    private void loadPlugins(CallbackInfo ci) {
+    private void loadPlugins(final CallbackInfo ci) {
         PluginMixinLoader.finishedApplying();
     }
 }
