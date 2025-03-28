@@ -20,7 +20,7 @@ public final class PluginMixinClassVisitor extends ClassVisitor {
     private String targetPlugin;
     public final Set<String> targetClasses = new HashSet<>();
 
-    public PluginMixinClassVisitor(ClassVisitor parent) {
+    public PluginMixinClassVisitor(final ClassVisitor parent) {
         super(ASM.API_VERSION, parent);
     }
 
@@ -29,12 +29,12 @@ public final class PluginMixinClassVisitor extends ClassVisitor {
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
+    public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
         if (descriptor.equals(PLUGIN_MIXIN_DESCRIPTOR)) {
             PluginMixinLoader.LOGGER.info("Found plugin mixin annotation on class");
             return new AnnotationVisitor(this.api, null) {
                 @Override
-                public void visit(String name, Object value) {
+                public void visit(final String name, final Object value) {
                     if (!name.equals("value")) return;
                     targetPlugin = (String) value;
                 }
@@ -42,12 +42,12 @@ public final class PluginMixinClassVisitor extends ClassVisitor {
         } else if (descriptor.equals(MIXIN_DESCRIPTOR)) {
             PluginMixinLoader.LOGGER.info("Found mixin annotation on class, searching for target classes");
             return new AnnotationVisitor(this.api, super.visitAnnotation(descriptor, visible)) {
-                public AnnotationVisitor visitArray(String name) {
+                public AnnotationVisitor visitArray(final String name) {
                     switch (name) {
                         case "value", "targets" -> {
                             return new AnnotationVisitor(this.api, this.av.visitArray(name)) {
                                 @Override
-                                public void visit(String name, Object value) {
+                                public void visit(final String name, final Object value) {
                                     final String target;
                                     if (value instanceof final String stringTarget) {
                                         target = stringTarget;
