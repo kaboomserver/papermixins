@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformer;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformerFactory;
 import org.spongepowered.asm.service.*;
-import org.spongepowered.asm.util.asm.ASM;
 import pw.kaboom.papermixins.pluginmixin.interop.IPluginMixinBootstrapper;
 import pw.kaboom.papermixins.pluginmixin.interop.LoadedPluginMixin;
 
