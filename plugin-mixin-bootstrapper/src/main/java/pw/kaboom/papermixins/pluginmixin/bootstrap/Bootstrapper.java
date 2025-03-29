@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Mixins;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformer;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformerFactory;
 import org.spongepowered.asm.service.*;
+import org.spongepowered.asm.util.Constants;
 import pw.kaboom.papermixins.pluginmixin.interop.IPluginMixinBootstrapper;
 import pw.kaboom.papermixins.pluginmixin.interop.LoadedPluginMixin;
 
@@ -43,7 +44,6 @@ public final class Bootstrapper extends SimpleMixinService
     static {
         // TODO: Make gradle set the compatibility level here
         CONFIG_OBJECT.addProperty("minVersion", "0.8");
-        CONFIG_OBJECT.addProperty("compatibilityLevel", "JAVA_21");
         CONFIG_OBJECT.addProperty("required", true);
         CONFIG_OBJECT.addProperty("plugin", "pw.kaboom.papermixins.pluginmixin.bootstrap.MixinExtrasConfigPlugin");
 
@@ -85,6 +85,16 @@ public final class Bootstrapper extends SimpleMixinService
     }
 
     @Override
+    public String getSideName() {
+        return Constants.SIDE_SERVER;
+    }
+
+    @Override
+    public MixinEnvironment.CompatibilityLevel getMinCompatibilityLevel() {
+        return MixinEnvironment.CompatibilityLevel.JAVA_21;
+    }
+
+    @Override
     public IClassProvider getClassProvider() {
         return this;
     }
@@ -98,7 +108,6 @@ public final class Bootstrapper extends SimpleMixinService
     protected ILogger createLogger(final String name) {
         return new LoggerAdapterSLF4J(PARENT, name);
     }
-
 
     @Override
     public InputStream getResourceAsStream(final String name) {
