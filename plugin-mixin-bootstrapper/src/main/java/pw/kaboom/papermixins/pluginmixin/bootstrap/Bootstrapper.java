@@ -7,7 +7,6 @@ import com.google.gson.JsonPrimitive;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.launch.platform.container.IContainerHandle;
 import org.spongepowered.asm.logging.ILogger;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -24,11 +23,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings({"deprecated"})
-public final class Bootstrapper extends MixinServiceAbstract
+public final class Bootstrapper extends SimpleMixinService
         implements IClassProvider, IClassBytecodeProvider, IPluginMixinBootstrapper {
-    private static final IContainerHandle PRIMARY_CONTAINER = new EmptyContainerHandle();
-    private static final List<String> PLATFORM_AGENTS =
-            Collections.singletonList("org.spongepowered.asm.launch.platform.MixinPlatformAgentDefault");
     private static final String INJECTED_MIXIN_CONFIG_NAME = "config.json";
     public static final String ID = "papermixins$pluginmixin";
 
@@ -58,11 +54,6 @@ public final class Bootstrapper extends MixinServiceAbstract
         CONFIG_OBJECT.addProperty("package", "pw.kaboom.papermixins.pluginmixin.mixins");
     }
 
-    @Override
-    public boolean isValid() {
-        return true;
-    }
-
     public static IPluginMixinBootstrapper init(final URLClassLoader parent,
                                                 final URL parentUrl,
                                                 final List<LoadedPluginMixin> mixinNodes) {
@@ -84,6 +75,16 @@ public final class Bootstrapper extends MixinServiceAbstract
     }
 
     @Override
+    public void init() {
+        instance = this;
+    }
+
+    @Override
+    public String getName() {
+        return ID;
+    }
+
+    @Override
     public IClassProvider getClassProvider() {
         return this;
     }
@@ -94,14 +95,10 @@ public final class Bootstrapper extends MixinServiceAbstract
     }
 
     @Override
-    public Collection<String> getPlatformAgents() {
-        return PLATFORM_AGENTS;
+    protected ILogger createLogger(final String name) {
+        return new LoggerAdapterSLF4J(PARENT, name);
     }
 
-    @Override
-    public IContainerHandle getPrimaryContainer() {
-        return PRIMARY_CONTAINER;
-    }
 
     @Override
     public InputStream getResourceAsStream(final String name) {
@@ -206,17 +203,6 @@ public final class Bootstrapper extends MixinServiceAbstract
     }
 
     @Override
-    protected ILogger createLogger(final String name) {
-        return new LoggerAdapterSLF4J(PARENT, name);
-    }
-
-    @Override
-    public void init() {
-        instance = this;
-        super.init();
-    }
-
-    @Override
     public void offer(final IMixinInternal internal) {
         if (internal instanceof final IMixinTransformerFactory transformerFactory) {
             this.mixinTransformer = transformerFactory.createTransformer();
@@ -224,27 +210,7 @@ public final class Bootstrapper extends MixinServiceAbstract
     }
 
     @Override
-    public String getName() {
-        return ID;
-    }
-
-    @Override
     public URL[] getClassPath() {
         return new URL[0];
-    }
-
-    @Override
-    public ITransformerProvider getTransformerProvider() {
-        return null;
-    }
-
-    @Override
-    public IClassTracker getClassTracker() {
-        return null;
-    }
-
-    @Override
-    public IMixinAuditTrail getAuditTrail() {
-        return null;
     }
 }
