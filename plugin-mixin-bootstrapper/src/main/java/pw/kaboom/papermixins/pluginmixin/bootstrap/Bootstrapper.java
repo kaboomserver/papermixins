@@ -27,11 +27,10 @@ import java.net.URLClassLoader;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@SuppressWarnings({"unchecked", "deprecated"})
+@SuppressWarnings({"deprecated"})
 public final class Bootstrapper extends MixinServiceAbstract
         implements IContainerHandle, IClassProvider, IClassBytecodeProvider,
-        IGlobalPropertyService, IMixinConfigSource, IMixinConfigPlugin,
-        IPluginMixinBootstrapper {
+        IMixinConfigSource, IMixinConfigPlugin, IPluginMixinBootstrapper {
     private static final ThreadLocal<String> CURRENT_TRANSFORM_TARGET = new ThreadLocal<>();
     private static final List<String> PLATFORM_AGENTS =
             Collections.singletonList("org.spongepowered.asm.launch.platform.MixinPlatformAgentDefault");
@@ -48,8 +47,6 @@ public final class Bootstrapper extends MixinServiceAbstract
     private static Bootstrapper instance;
 
     private IMixinTransformer mixinTransformer;
-    private final Map<BlackBoardKey, Object> properties = new ConcurrentHashMap<>();
-    private final Map<String, BlackBoardKey> blackBored = new ConcurrentHashMap<>();
 
     static {
         // TODO: Make gradle set the compatibility level here
@@ -292,36 +289,6 @@ public final class Bootstrapper extends MixinServiceAbstract
     public void postApply(final String targetClassName, final ClassNode targetClass,
                           final String mixinClassName, final IMixinInfo mixinInfo) {
 
-    }
-
-    private static final class BlackBoardKey implements IPropertyKey {
-
-    }
-
-    @Override
-    public IPropertyKey resolveKey(final String name) {
-        return this.blackBored.computeIfAbsent(name, key -> new BlackBoardKey());
-    }
-
-    @Override
-    public <T> T getProperty(final IPropertyKey key) {
-        return (T) this.properties.get(key);
-    }
-
-    @Override
-    public void setProperty(final IPropertyKey key, final Object value) {
-        this.properties.put((BlackBoardKey) key, value);
-    }
-
-    @Override
-    public <T> T getProperty(final IPropertyKey key, final T defaultValue) {
-        if (key == null) return defaultValue;
-        return (T) this.properties.getOrDefault((BlackBoardKey) key, defaultValue);
-    }
-
-    @Override
-    public String getPropertyString(final IPropertyKey key, final String defaultValue) {
-        return this.getProperty(key, defaultValue);
     }
 
     @Override
