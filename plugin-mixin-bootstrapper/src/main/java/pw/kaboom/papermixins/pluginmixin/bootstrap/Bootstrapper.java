@@ -32,6 +32,7 @@ public final class Bootstrapper extends MixinServiceAbstract
         implements IContainerHandle, IClassProvider, IClassBytecodeProvider,
         IGlobalPropertyService, IMixinConfigSource, IMixinConfigPlugin,
         IPluginMixinBootstrapper {
+    private static final ThreadLocal<String> CURRENT_TRANSFORM_TARGET = new ThreadLocal<>();
     private static final List<String> PLATFORM_AGENTS =
             Collections.singletonList("org.spongepowered.asm.launch.platform.MixinPlatformAgentDefault");
     private static final String INJECTED_MIXIN_CONFIG_NAME = "config.json";
@@ -198,8 +199,7 @@ public final class Bootstrapper extends MixinServiceAbstract
         return getClassNode(name, runTransformers, 0);
     }
 
-    private static InputStream findClassBytesRecursive(final String name) {
-        ClassLoader loader = UNMODIFIED_PARENT;
+    private static InputStream findClassBytesRecursive(ClassLoader loader, final String name) {
         InputStream stream = null;
         while (loader != null && (stream = loader.getResourceAsStream(name)) == null) {
             loader = loader.getParent();
@@ -222,7 +222,13 @@ public final class Bootstrapper extends MixinServiceAbstract
         ClassNode node = CLASS_NODE_CACHE.get(binaryName);
         if (node != null) return node;
 
-        final InputStream stream = findClassBytesRecursive(resourceName);
+        final ClassLoader targetLoader = TARGETS.contains(binaryName) && !Objects.equals(CURRENT_TRANSFORM_TARGET.get(), binaryName)
+                ?
+                PARENT
+                :
+                UNMODIFIED_PARENT;
+
+        final InputStream stream = findClassBytesRecursive(targetLoader, resourceName);
         if (stream == null) throw new ClassNotFoundException(binaryName);
 
         node = readClassBytes(stream.readAllBytes());
@@ -235,12 +241,14 @@ public final class Bootstrapper extends MixinServiceAbstract
     @Override
     public byte[] transformClassBytes(final String classBinaryName, final byte[] originalBytes) {
         final boolean runTransform = TARGETS.contains(classBinaryName);
+        if (runTransform) CURRENT_TRANSFORM_TARGET.set(classBinaryName);
         final byte[] transformedBytes = runTransform ?
                 this.mixinTransformer.transformClass(
                         MixinEnvironment.getEnvironment(MixinEnvironment.Phase.DEFAULT),
                         classBinaryName,
                         originalBytes)
                 : originalBytes;
+        if (runTransform) CURRENT_TRANSFORM_TARGET.remove();
 
         if (runTransform || !CLASS_NODE_CACHE.containsKey(classBinaryName)) {
             CLASS_NODE_CACHE.put(classBinaryName, readClassBytes(transformedBytes));
