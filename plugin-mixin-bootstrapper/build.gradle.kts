@@ -3,8 +3,8 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.fabric.mixins)
-    copyServices(libs.mixinextras.common)
+    compileOnly(libs.mixin)
+    copyServices(libs.mixinextras)
 
     compileOnly(project(":plugin-mixin-interop"))
     compileOnly(libs.slf4j.api)

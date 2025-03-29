@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.fabric.mixins)
+    compileOnly(libs.mixin)
 }

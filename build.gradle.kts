@@ -17,19 +17,15 @@ repositories {
 
 dependencies {
     paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
-
     compileOnly("space.vectrix.ignite:ignite-api:1.1.0")
 
-    includeInJar(libs.fabric.mixins)
+    includeInJar(libs.mixin)
+    compileOnly(libs.mixinextras)
+    annotationProcessor(libs.mixinextras)
+    includeInJar(libs.mixinextras)
 
     includeInJar(project(":plugin-mixin-bootstrapper"))
-
-    annotationProcessor(libs.mixinextras.common)
-    includeInJar(libs.mixinextras.common)
-
     implementation(project(":plugin-mixin-interop"))
-
-    compileOnly("io.github.llamalad7:mixinextras-common:0.4.1")
 
     compileOnly("net.essentialsx:EssentialsX:2.21.0") { isTransitive = false }
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.13.0") { isTransitive = false }
