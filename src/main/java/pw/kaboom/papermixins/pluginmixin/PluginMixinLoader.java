@@ -111,17 +111,17 @@ public final class PluginMixinLoader {
 
                     final String targetPlugin = pluginMixinClassVisitor.getTargetPlugin();
                     if (targetPlugin == null) {
-                        LOGGER.info("Class {} isn't a plugin mixin. Discarding!", classNode.name);
+                        LOGGER.warn("Class {} isn't a plugin mixin. Discarding!", classNode.name);
                         continue;
                     }
 
                     final Set<String> targetClasses = pluginMixinClassVisitor.targetClasses;
                     if (targetClasses.isEmpty()) {
-                        LOGGER.info("Mixin {} doesn't target any classes. Discarding!", classNode.name);
+                        LOGGER.warn("Mixin {} doesn't target any classes. Discarding!", classNode.name);
                         continue;
                     }
 
-                    LOGGER.info("Mixin {} targets {}", classNode.name, targetClasses);
+                    LOGGER.debug("Mixin {} targets {}", classNode.name, targetClasses);
                     loadedMixinCount++;
                     final String binaryName = classNode.name.replace('/', '.');
                     PLUGIN_MIXINS.computeIfAbsent(targetPlugin, key -> new ObjectArrayList<>())

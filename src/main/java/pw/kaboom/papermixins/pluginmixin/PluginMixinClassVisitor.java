@@ -31,7 +31,7 @@ public final class PluginMixinClassVisitor extends ClassVisitor {
     @Override
     public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
         if (descriptor.equals(PLUGIN_MIXIN_DESCRIPTOR)) {
-            PluginMixinLoader.LOGGER.info("Found plugin mixin annotation on class");
+            PluginMixinLoader.LOGGER.debug("Found plugin mixin annotation on class");
             return new AnnotationVisitor(this.api, null) {
                 @Override
                 public void visit(final String name, final Object value) {
@@ -40,7 +40,7 @@ public final class PluginMixinClassVisitor extends ClassVisitor {
                 }
             };
         } else if (descriptor.equals(MIXIN_DESCRIPTOR)) {
-            PluginMixinLoader.LOGGER.info("Found mixin annotation on class, searching for target classes");
+            PluginMixinLoader.LOGGER.debug("Found mixin annotation on class, searching for target classes");
             return new AnnotationVisitor(this.api, super.visitAnnotation(descriptor, visible)) {
                 public AnnotationVisitor visitArray(final String name) {
                     switch (name) {
