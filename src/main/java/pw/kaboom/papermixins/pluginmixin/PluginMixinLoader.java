@@ -23,7 +23,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public final class PluginMixinLoader {
-    public static final Logger LOGGER = LoggerFactory.getLogger("papermixins$pluginmixin");
+    public static final Logger LOGGER = LoggerFactory.getLogger("paper-mixins$pluginmixin");
     private static Map<String, List<LoadedPluginMixin>> PLUGIN_MIXINS = new HashMap<>();
     private static final String GRAND_FATHERED_URL_SEARCH_PATH = "META-INF/jars";
     public static final URL[] GRAND_FATHERED_URLS;
