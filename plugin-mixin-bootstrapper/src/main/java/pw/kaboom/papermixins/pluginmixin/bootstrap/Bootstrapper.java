@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class Bootstrapper extends SimpleMixinService
         implements IClassProvider, IClassBytecodeProvider, IPluginMixinBootstrapper {
     private static final String INJECTED_MIXIN_CONFIG_NAME = "config.json";
-    public static final String ID = "papermixins$pluginmixin";
+    public static final String ID = "paper-mixins$pluginmixin";
 
     private static final ThreadLocal<String> CURRENT_TRANSFORM_TARGET = new ThreadLocal<>();
     private static final Map<String, ClassNode> CLASS_NODE_CACHE = new ConcurrentHashMap<>();

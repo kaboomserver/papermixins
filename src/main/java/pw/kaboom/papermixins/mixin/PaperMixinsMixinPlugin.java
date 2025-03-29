@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public final class PaperMixinsMixinPlugin implements IMixinConfigPlugin {
-    private static final Logger LOGGER = LoggerFactory.getLogger("kaboom-paper-mixins");
+    private static final Logger LOGGER = LoggerFactory.getLogger("paper-mixins");
     private String mixinPackage;
     private PaperMixinsConfig config;
 
