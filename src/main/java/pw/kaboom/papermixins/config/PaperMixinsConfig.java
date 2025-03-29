@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public final class PaperMixinsConfig {
-    private static final Logger LOGGER = LoggerFactory.getLogger("kaboom-paper-mixins");
+    private static final Logger LOGGER = LoggerFactory.getLogger("paper-mixins");
     private final HashMap<String, Boolean> config = new HashMap<>();
 
     public PaperMixinsConfig(final File file) {
