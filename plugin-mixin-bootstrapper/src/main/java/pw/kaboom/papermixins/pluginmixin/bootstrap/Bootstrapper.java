@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.launch.MixinBootstrap;
@@ -12,9 +11,7 @@ import org.spongepowered.asm.launch.platform.container.IContainerHandle;
 import org.spongepowered.asm.logging.ILogger;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
-import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigSource;
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformer;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformerFactory;
 import org.spongepowered.asm.service.*;
@@ -30,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings({"deprecated"})
 public final class Bootstrapper extends MixinServiceAbstract
         implements IContainerHandle, IClassProvider, IClassBytecodeProvider,
-        IMixinConfigSource, IMixinConfigPlugin, IPluginMixinBootstrapper {
+        IMixinConfigSource, IPluginMixinBootstrapper {
     private static final ThreadLocal<String> CURRENT_TRANSFORM_TARGET = new ThreadLocal<>();
     private static final List<String> PLATFORM_AGENTS =
             Collections.singletonList("org.spongepowered.asm.launch.platform.MixinPlatformAgentDefault");
@@ -53,7 +50,7 @@ public final class Bootstrapper extends MixinServiceAbstract
         CONFIG_OBJECT.addProperty("minVersion", "0.8");
         CONFIG_OBJECT.addProperty("compatibilityLevel", "JAVA_21");
         CONFIG_OBJECT.addProperty("required", true);
-        CONFIG_OBJECT.addProperty("plugin", "pw.kaboom.papermixins.pluginmixin.bootstrap.Bootstrapper");
+        CONFIG_OBJECT.addProperty("plugin", "pw.kaboom.papermixins.pluginmixin.bootstrap.MixinExtrasConfigPlugin");
 
         final JsonObject injectors = new JsonObject();
         injectors.addProperty("defaultRequire", 1);
@@ -252,43 +249,6 @@ public final class Bootstrapper extends MixinServiceAbstract
         }
 
         return transformedBytes;
-    }
-
-    @Override
-    public void onLoad(final String mixinPackage) {
-        MixinExtrasBootstrap.init();
-    }
-
-    @Override
-    public String getRefMapperConfig() {
-        return null;
-    }
-
-    @Override
-    public boolean shouldApplyMixin(final String targetClassName, final String mixinClassName) {
-        return true;
-    }
-
-    @Override
-    public void acceptTargets(final Set<String> myTargets, final Set<String> otherTargets) {
-
-    }
-
-    @Override
-    public List<String> getMixins() {
-        return null;
-    }
-
-    @Override
-    public void preApply(final String targetClassName, final ClassNode targetClass,
-                         final String mixinClassName, final IMixinInfo mixinInfo) {
-
-    }
-
-    @Override
-    public void postApply(final String targetClassName, final ClassNode targetClass,
-                          final String mixinClassName, final IMixinInfo mixinInfo) {
-
     }
 
     @Override
