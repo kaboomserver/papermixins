@@ -19,7 +19,6 @@
     "feat.plugin_mixins.LibraryLoaderMixin",
     "feat.plugin_mixins.PluginClassLoaderMixin",
     "feat.plugin_mixins.SpigotPluginProviderMixin",
-    "perf.block_state_no_copy.CraftChunkMixin",
     "perf.command_block_optimization.CommandBlockEntityBaseCommandBlockImplMixin",
     "perf.command_block_optimization.CommandBlockMixin",
     "perf.command_block_optimization.accessor.CommandBlockEntityAccessor"
