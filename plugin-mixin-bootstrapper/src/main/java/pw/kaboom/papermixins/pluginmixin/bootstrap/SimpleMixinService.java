@@ -10,8 +10,6 @@ import org.spongepowered.asm.util.ReEntranceLock;
 import java.util.*;
 
 public abstract class SimpleMixinService implements IMixinService {
-    private static final List<String> PLATFORM_AGENTS =
-            Collections.singletonList("org.spongepowered.asm.launch.platform.MixinPlatformAgentDefault");
     private static final IContainerHandle PRIMARY_CONTAINER = new EmptyContainerHandle();
 
     private final ReEntranceLock lock = new ReEntranceLock(1);
@@ -65,7 +63,6 @@ public abstract class SimpleMixinService implements IMixinService {
     }
 
     // Unsupported
-
     @Override
     public IMixinAuditTrail getAuditTrail() {
         return null;
@@ -78,9 +75,7 @@ public abstract class SimpleMixinService implements IMixinService {
 
     @Override
     public Collection<String> getPlatformAgents() {
-        // TODO: check if we even need the default agent
-        // (afaik it's only used for META-INF in jars?)
-        return PLATFORM_AGENTS;
+        return Collections.emptyList();
     }
 
     @Override

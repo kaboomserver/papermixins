@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Stream;
@@ -51,7 +52,7 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
 
     @Override
     public Enumeration<URL> getResources(final String name) throws IOException {
-        return isIllegal(name) ? EmptyEnumeration.empty() : super.getResources(name);
+        return isIllegal(name) ? Collections.emptyEnumeration() : super.getResources(name);
     }
 
     @Override
@@ -66,24 +67,12 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
 
     @Override
     protected Enumeration<URL> findResources(final String name) throws IOException {
-        return isIllegal(name) ? EmptyEnumeration.empty() : super.findResources(name);
+        return isIllegal(name) ? Collections.emptyEnumeration() : super.findResources(name);
     }
 
     @Override
     public @Nullable InputStream getResourceAsStream(final String name) {
         return isIllegal(name) ? null : super.getResourceAsStream(name);
-    }
-
-    @Override
-    protected Package definePackage(final String name,
-                                    final String specTitle,
-                                    final String specVersion,
-                                    final String specVendor,
-                                    final String implTitle,
-                                    final String implVersion,
-                                    final String implVendor,
-                                    final URL sealBase) {
-        return super.definePackage(name, specTitle, specVersion, specVendor, implTitle, implVersion, implVendor, sealBase);
     }
 
     @SuppressWarnings("deprecation")

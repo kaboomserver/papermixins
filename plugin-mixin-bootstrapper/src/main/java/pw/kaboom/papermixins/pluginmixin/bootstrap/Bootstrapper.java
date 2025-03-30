@@ -23,10 +23,10 @@ import java.net.URLClassLoader;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@SuppressWarnings({"deprecated"})
+@SuppressWarnings("deprecated")
 public final class Bootstrapper extends SimpleMixinService
         implements IClassProvider, IClassBytecodeProvider, IPluginMixinBootstrapper {
-    private static final String INJECTED_MIXIN_CONFIG_NAME = "config.json";
+    private static final String INJECTED_MIXIN_CONFIG_NAME = "mixins.json";
     public static final String ID = "paper-mixins$pluginmixin";
 
     private static final ThreadLocal<String> CURRENT_TRANSFORM_TARGET = new ThreadLocal<>();
@@ -42,16 +42,14 @@ public final class Bootstrapper extends SimpleMixinService
     private IMixinTransformer mixinTransformer;
 
     static {
-        // TODO: Make gradle set the compatibility level here
-        CONFIG_OBJECT.addProperty("minVersion", "0.8");
         CONFIG_OBJECT.addProperty("required", true);
         CONFIG_OBJECT.addProperty("plugin", "pw.kaboom.papermixins.pluginmixin.bootstrap.MixinExtrasConfigPlugin");
+        CONFIG_OBJECT.addProperty("package", "pw.kaboom.papermixins.pluginmixin.mixins");
 
         final JsonObject injectors = new JsonObject();
         injectors.addProperty("defaultRequire", 1);
 
         CONFIG_OBJECT.add("injectors", injectors);
-        CONFIG_OBJECT.addProperty("package", "pw.kaboom.papermixins.pluginmixin.mixins");
     }
 
     public static IPluginMixinBootstrapper init(final URLClassLoader parent,
