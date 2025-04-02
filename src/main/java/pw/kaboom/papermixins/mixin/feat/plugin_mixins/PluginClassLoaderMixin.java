@@ -32,11 +32,6 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
     @Unique
     private IPluginMixinBootstrapper papermixins$pluginMixinBootstrapper;
 
-    @Unique
-    private void papermixins$accessLoadUrl(final URL url) {
-        super.addURL(url);
-    }
-
     @Inject(method = "<init>", at = @At(
             value = "INVOKE",
             target = "Ljava/lang/Class;forName(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;"))
@@ -49,10 +44,6 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
                                      final DependencyContext dependencyContext,
                                      final CallbackInfo ci) {
         if (!(parent instanceof final PluginMixinSeparationClassLoader ourClassLoader)) return;
-
-        for (final URL grandFatheredUrl : PluginMixinLoader.GRAND_FATHERED_URLS) {
-            papermixins$accessLoadUrl(grandFatheredUrl);
-        }
 
         try {
             final Class<?> bootstrapperClass = Class.forName("pw.kaboom.papermixins.pluginmixin.bootstrap.Bootstrapper", true, this);
