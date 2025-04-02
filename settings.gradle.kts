@@ -4,5 +4,3 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
-include("plugin-mixin-interop")

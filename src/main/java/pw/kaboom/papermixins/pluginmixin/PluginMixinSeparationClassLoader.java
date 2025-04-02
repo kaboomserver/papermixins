@@ -20,6 +20,10 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
             "META-INF/services/org.spongepowered.asm.service."
     };
 
+    private static final String[] INHERITED_PACKAGES = {
+            "pw.kaboom.papermixins.pluginmixin.interop"
+    };
+
     public final List<LoadedPluginMixin> mixins;
 
     public PluginMixinSeparationClassLoader(final ClassLoader parent, final List<LoadedPluginMixin> mixins) {
@@ -29,6 +33,14 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
 
     private static boolean shouldDelegate(final String attemptedLoad) {
         for (final String pkg : DELEGATED_PACKAGES) {
+            if (attemptedLoad.startsWith(pkg)) return true;
+        }
+
+        return false;
+    }
+
+    private static boolean shouldInherit(final String attemptedLoad) {
+        for (final String pkg : INHERITED_PACKAGES) {
             if (attemptedLoad.startsWith(pkg)) return true;
         }
 
@@ -57,6 +69,8 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
     protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
         final Class<?> alreadyLoaded = this.findLoadedClass(name);
         if (alreadyLoaded != null) return alreadyLoaded;
+
+        if (shouldInherit(name)) return this.getClass().getClassLoader().loadClass(name);
 
         return shouldDelegate(name) ? reloadFromRoot(name)
                 : super.loadClass(name, resolve);

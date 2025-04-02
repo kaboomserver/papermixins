@@ -23,8 +23,6 @@ dependencies {
     compileOnly(libs.mixinextras)
     annotationProcessor(libs.mixinextras)
 
-    implementation(project(":plugin-mixin-interop"))
-
     compileOnly("net.essentialsx:EssentialsX:2.21.0") { isTransitive = false }
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.13.0") { isTransitive = false }
 }
