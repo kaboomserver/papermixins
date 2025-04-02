@@ -14,14 +14,20 @@ base {
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.fabricmc.net/")
+    maven("https://repo.essentialsx.net/releases/")
+    maven("https://maven.enginehub.org/repo/")
 }
 
 dependencies {
     paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
 
     compileOnly("space.vectrix.ignite:ignite-api:1.1.0")
-    compileOnly("net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7")
-    compileOnly("io.github.llamalad7:mixinextras-common:0.4.1")
+    compileOnly(libs.mixin)
+    compileOnly(libs.mixinextras)
+    annotationProcessor(libs.mixinextras)
+
+    compileOnly("net.essentialsx:EssentialsX:2.21.0") { isTransitive = false }
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.13.0") { isTransitive = false }
 }
 
 java {
