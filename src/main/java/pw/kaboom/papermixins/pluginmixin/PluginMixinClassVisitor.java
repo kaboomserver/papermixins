@@ -51,10 +51,11 @@ public final class PluginMixinClassVisitor extends ClassVisitor {
                                     final String target;
                                     if (value instanceof final String stringTarget) {
                                         target = stringTarget;
-                                    } else {
-                                        if (!(value instanceof final Type type)) throw new IllegalStateException("Value is invalid type");
+                                    } else if (value instanceof final Type type) {
                                         final String descriptor = type.getDescriptor();
                                         target = descriptor.substring(1, descriptor.length() - 1);
+                                    } else {
+                                        throw new IllegalStateException("Value is invalid type");
                                     }
 
                                     targetClasses.add(target.replace('/', '.'));

@@ -52,6 +52,7 @@ public final class Bootstrapper extends SimpleMixinService
         CONFIG_OBJECT.add("injectors", injectors);
     }
 
+    @SuppressWarnings("unused") // called through reflection
     public static IPluginMixinBootstrapper init(final URLClassLoader parent,
                                                 final URL parentUrl,
                                                 final List<LoadedPluginMixin> mixinNodes) {
@@ -216,6 +217,7 @@ public final class Bootstrapper extends SimpleMixinService
         }
     }
 
+    @Deprecated
     @Override
     public URL[] getClassPath() {
         return new URL[0];

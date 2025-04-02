@@ -12,7 +12,11 @@ final class LoggerAdapterSLF4J extends LoggerAdapterAbstract {
 
     LoggerAdapterSLF4J(final URLClassLoader classLoader, final String label) {
         super(label);
-        this.logger = LoggerFactory.getLogger(Bootstrapper.ID + "$" + classLoader.getName() + "$" + label);
+
+        String name = Bootstrapper.ID + "$" + classLoader.getName();
+        if (!label.equals("mixin")) name += "$" + label;
+        
+        this.logger = LoggerFactory.getLogger(name);
     }
 
     @Override
