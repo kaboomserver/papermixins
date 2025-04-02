@@ -13,7 +13,8 @@ import pw.kaboom.papermixins.util.BrigadierConstants;
 
 @Mixin(BukkitBrigForwardingMap.class)
 public abstract class BukkitBrigForwardingMapMixin {
-    @Inject(method = "put(Ljava/lang/String;Lorg/bukkit/command/Command;)Lorg/bukkit/command/Command;", at = @At("TAIL"))
+    @Inject(method = "put(Ljava/lang/String;Lorg/bukkit/command/Command;)Lorg/bukkit/command/Command;",
+            at = @At("TAIL"))
     private void put(final String key, final Command value, final CallbackInfoReturnable<Command> cir) {
         if (!key.startsWith("minecraft:")) {
             return;
@@ -29,8 +30,8 @@ public abstract class BukkitBrigForwardingMapMixin {
         root.addChild(BukkitCommandNode.of(cmd, value));
     }
 
-    @Inject(method = "remove(Ljava/lang/Object;)Lorg/bukkit/command/Command;", at = @At(value = "INVOKE",
-            target = "Lcom/mojang/brigadier/tree/RootCommandNode;removeCommand(Ljava/lang/String;)V"))
+    @Inject(method = "remove(Ljava/lang/Object;)Lorg/bukkit/command/Command;",
+            at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/tree/RootCommandNode;removeCommand(Ljava/lang/String;)V"))
     private void remove$removeCommand(final Object key, final CallbackInfoReturnable<Command> cir) {
         final String string = (String) key; // instanceof check already performed for us
         final RootCommandNode<CommandSourceStack> root = BrigadierConstants.VANILLA_DISPATCHER_PAPER.getRoot();

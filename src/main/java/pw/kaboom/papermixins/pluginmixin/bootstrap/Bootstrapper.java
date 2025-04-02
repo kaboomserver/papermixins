@@ -176,10 +176,7 @@ public final class Bootstrapper extends SimpleMixinService
         if (node != null) return node;
 
         final ClassLoader targetLoader = TARGETS.contains(binaryName) && !Objects.equals(CURRENT_TRANSFORM_TARGET.get(), binaryName)
-                ?
-                PARENT
-                :
-                UNMODIFIED_PARENT;
+                ? PARENT : UNMODIFIED_PARENT;
 
         final InputStream stream = findClassBytesRecursive(targetLoader, resourceName);
         if (stream == null) throw new ClassNotFoundException(binaryName);

@@ -32,9 +32,8 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
     @Unique
     private IPluginMixinBootstrapper papermixins$pluginMixinBootstrapper;
 
-    @Inject(method = "<init>", at = @At(
-            value = "INVOKE",
-            target = "Ljava/lang/Class;forName(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;"))
+    @Inject(method = "<init>",
+            at = @At(value = "INVOKE", target = "Ljava/lang/Class;forName(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;"))
     private void init$afterSuperInit(final ClassLoader parent,
                                      final PluginDescriptionFile description,
                                      final File dataFolder,
@@ -58,10 +57,8 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
         }
     }
 
-    @WrapOperation(
-            method = "findClass",
-            at = @At(value = "INVOKE",
-                    target = "Lcom/google/common/io/ByteStreams;toByteArray(Ljava/io/InputStream;)[B"))
+    @WrapOperation(method = "findClass",
+            at = @At(value = "INVOKE", target = "Lcom/google/common/io/ByteStreams;toByteArray(Ljava/io/InputStream;)[B"))
     private byte[] findClass$toByteArray(final InputStream in,
                                          final Operation<byte[]> original,
                                          @Local(argsOnly = true) final String binaryName) {

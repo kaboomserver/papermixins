@@ -21,7 +21,8 @@ import java.util.List;
 @Mixin(Commandgc.class)
 public abstract class CommandgcMixin {
     @WrapOperation(method = "run",
-            at = @At(value = "INVOKE", target = "Lorg/bukkit/Server;getWorlds()Ljava/util/List;"))
+            at = @At(value = "INVOKE", target = "Lorg/bukkit/Server;getWorlds()Ljava/util/List;"),
+            require = 0)
     private List<World> run$getWorlds(final Server instance, final Operation<List<World>> original,
                                       final @Local(argsOnly = true) CommandSource sender) {
         for (final World world : original.call(instance)) {
@@ -31,7 +32,7 @@ public abstract class CommandgcMixin {
             String worldType = "World";
             if (worldEnvironment == World.Environment.NETHER) {
                 worldType = "Nether";
-            } else if (worldEnvironment == World.Environment.THE_END){
+            } else if (worldEnvironment == World.Environment.THE_END) {
                 worldType = "The End";
             }
 

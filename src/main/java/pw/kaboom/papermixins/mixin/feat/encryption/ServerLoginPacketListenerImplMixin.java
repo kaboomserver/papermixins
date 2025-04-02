@@ -26,24 +26,16 @@ public abstract class ServerLoginPacketListenerImplMixin {
     @Final
     public Connection connection;
 
-    @WrapOperation(
-            method = "handleHello",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/MinecraftServer;usesAuthentication()Z"
-            ))
+    @WrapOperation(method = "handleHello",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;usesAuthentication()Z"))
     private boolean handleHello$usesAuthentication(final MinecraftServer instance, final Operation<Boolean> original,
                                                    final @Local(argsOnly = true) ServerboundHelloPacket helloPacket) {
         return original.call(instance)
                 || ViaVersionHax.getOriginalVersion(this.connection.channel) >= 766;
     }
 
-    @WrapOperation(
-            method = "handleHello",
-            at = @At(
-                    value = "NEW",
-                    target = "(Ljava/lang/String;[B[BZ)Lnet/minecraft/network/protocol/login/ClientboundHelloPacket;"
-            ))
+    @WrapOperation(method = "handleHello",
+            at = @At(value = "NEW", target = "(Ljava/lang/String;[B[BZ)Lnet/minecraft/network/protocol/login/ClientboundHelloPacket;"))
     private ClientboundHelloPacket handleHello$initHelloPacket(final String serverId, final byte[] publicKey,
                                                                final byte[] challenge, final boolean shouldAuthenticate,
                                                                final Operation<ClientboundHelloPacket> original) {

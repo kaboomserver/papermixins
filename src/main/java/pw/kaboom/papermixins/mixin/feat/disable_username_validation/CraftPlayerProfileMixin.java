@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(CraftPlayerProfile.class)
 public abstract class CraftPlayerProfileMixin {
-    @WrapOperation(method = "createAuthLibProfile", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/util/StringUtil;isValidPlayerName(Ljava/lang/String;)Z"))
+    @WrapOperation(method = "createAuthLibProfile",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/StringUtil;isValidPlayerName(Ljava/lang/String;)Z"))
     private static boolean createAuthLibProfile$isValidPlayerName(final String playerName,
                                                                   final Operation<Boolean> original) {
         return true; // :)
