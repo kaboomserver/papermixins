@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-include("plugin-mixin-bootstrapper", "plugin-mixin-interop")
+include("plugin-mixin-interop")

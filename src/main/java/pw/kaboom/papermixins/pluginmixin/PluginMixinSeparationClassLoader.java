@@ -1,21 +1,24 @@
 package pw.kaboom.papermixins.pluginmixin;
 
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.Nullable;
 import pw.kaboom.papermixins.pluginmixin.interop.LoadedPluginMixin;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.*;
 
 public final class PluginMixinSeparationClassLoader extends ClassLoader {
     static {
         registerAsParallelCapable();
     }
+
+    private static final String[] DELEGATED_PACKAGES = {
+            "org.spongepowered.asm.",
+            "com.llamalad7.mixinextras.",
+            "pw.kaboom.papermixins.pluginmixin.bootstrap.",
+            "META-INF/services/org.spongepowered.asm.service."
+    };
 
     public final List<LoadedPluginMixin> mixins;
 
@@ -24,67 +27,63 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
         this.mixins = mixins;
     }
 
-    private static boolean isIllegal(final String attemptedLoad) {
-        return attemptedLoad.contains("org/spongepowered/asm") || attemptedLoad.contains("org.spongepowered.asm")
-                || attemptedLoad.contains("com/llamalad7/mixinextras") || attemptedLoad.contains("com.llamalad7.mixinextras");
+    private static boolean shouldDelegate(final String attemptedLoad) {
+        for (final String pkg : DELEGATED_PACKAGES) {
+            if (attemptedLoad.startsWith(pkg)) return true;
+        }
+
+        return false;
     }
 
-    private static void separateWithClassNotFound(final String attemptedLoad) throws ClassNotFoundException {
-        if (isIllegal(attemptedLoad)) throw new ClassNotFoundException();
+    private Class<?> reloadFromRoot(final String name) throws ClassNotFoundException {
+        final Class<?> parentClass = this.getClass().getClassLoader().loadClass(name);
+
+        final String internalName = parentClass.getTypeName()
+                .substring(parentClass.getPackageName().length() + 1);
+        final URL parentResource = parentClass.getResource(internalName + ".class");
+        if (parentResource == null) throw new ClassNotFoundException(name); // Pray this doesn't happen
+
+        final byte[] classBytes;
+        try {
+            classBytes = IOUtils.toByteArray(parentResource);
+        } catch (final IOException e) {
+            throw new ClassNotFoundException(name); // Maybe this could happen if the jar is corrupted?
+        }
+
+        return defineClass(parentClass.getName(), classBytes, 0, classBytes.length);
     }
 
     @Override
     protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
-        separateWithClassNotFound(name);
-        return super.loadClass(name, resolve);
-    }
+        final Class<?> alreadyLoaded = this.findLoadedClass(name);
+        if (alreadyLoaded != null) return alreadyLoaded;
 
-    @Override
-    protected Class<?> findClass(final String name) throws ClassNotFoundException {
-        separateWithClassNotFound(name);
-        return this.getParent().loadClass(name);
+        return shouldDelegate(name) ? reloadFromRoot(name)
+                : super.loadClass(name, resolve);
     }
 
     @Override
     public @Nullable URL getResource(final String name) {
-        return isIllegal(name) ? null : super.getResource(name);
+        return shouldDelegate(name) ? this.getClass().getClassLoader().getResource(name)
+                : super.getResource(name);
     }
 
     @Override
     public Enumeration<URL> getResources(final String name) throws IOException {
-        return isIllegal(name) ? Collections.emptyEnumeration() : super.getResources(name);
-    }
-
-    @Override
-    public Stream<URL> resources(final String name) {
-        return isIllegal(name) ? Stream.empty() : super.resources(name);
-    }
-
-    @Override
-    protected URL findResource(final String name) {
-        return isIllegal(name) ? null : super.findResource(name);
-    }
-
-    @Override
-    protected Enumeration<URL> findResources(final String name) throws IOException {
-        return isIllegal(name) ? Collections.emptyEnumeration() : super.findResources(name);
-    }
-
-    @Override
-    public @Nullable InputStream getResourceAsStream(final String name) {
-        return isIllegal(name) ? null : super.getResourceAsStream(name);
+        return shouldDelegate(name) ? this.getClass().getClassLoader().getResources(name)
+                : super.getResources(name);
     }
 
     @SuppressWarnings("deprecation")
     @Override
     protected Package getPackage(final String name) {
-        return isIllegal(name) ? null : super.getPackage(name);
+        return shouldDelegate(name) ? null : super.getPackage(name);
     }
 
     @Override
     protected Package[] getPackages() {
         return Arrays.stream(super.getPackages())
-                .filter(pkg -> !isIllegal(pkg.getName()))
+                .filter(pkg -> !shouldDelegate(pkg.getName()))
                 .toArray(Package[]::new);
     }
 }
