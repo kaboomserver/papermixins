@@ -1,8 +1,11 @@
 plugins {
-    id("papermixins.java-conventions")
+    id("checkstyle")
+    id("java-library")
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.16"
-    id("com.gradleup.shadow") version "9.0.0-beta11"
 }
+
+group = "pw.kaboom"
+version = "master"
 
 base {
     archivesName = "paper-mixins"
@@ -17,8 +20,8 @@ repositories {
 
 dependencies {
     paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
-    compileOnly("space.vectrix.ignite:ignite-api:1.1.0")
 
+    compileOnly("space.vectrix.ignite:ignite-api:1.1.0")
     compileOnly(libs.mixin)
     compileOnly(libs.mixinextras)
     annotationProcessor(libs.mixinextras)
@@ -27,16 +30,6 @@ dependencies {
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.13.0") { isTransitive = false }
 }
 
-tasks {
-    assemble {
-        dependsOn(shadowJar)
-    }
-
-    jar {
-        archiveClassifier.set("original")
-    }
-
-    shadowJar {
-        archiveClassifier.set("")
-    }
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
