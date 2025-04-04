@@ -16,7 +16,7 @@ public abstract class CommandignoreMixin {
     @WrapOperation(method = "run", at = @At(value = "INVOKE",
             target = "Lcom/earth2me/essentials/User;isIgnoredPlayer(Lcom/earth2me/essentials/IUser;)Z"))
     private boolean run$isIgnoredPlayer(final User user,
-                                        final IUser toCheck,
+                                        final @SuppressWarnings("deprecation") IUser toCheck,
                                         final Operation<Boolean> original,
                                         final @Local(argsOnly = true) String[] args) {
         if (args.length < 2) return original.call(user, toCheck);
