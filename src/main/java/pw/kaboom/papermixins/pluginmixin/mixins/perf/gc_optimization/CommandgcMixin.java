@@ -5,8 +5,8 @@ import com.earth2me.essentials.commands.Commandgc;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -41,9 +41,9 @@ public abstract class CommandgcMixin {
             int loadedChunks = 0;
             int tileEntities = 0;
 
-            for (final ServerChunkCache.ChunkAndHolder chunk : handle.moonrise$getLoadedChunks()) {
+            for (final LevelChunk chunk : handle.moonrise$getLoadedChunks()) {
                 loadedChunks++;
-                tileEntities += chunk.chunk().blockEntities.size();
+                tileEntities += chunk.blockEntities.size();
             }
 
             sender.sendTl("gcWorld", worldType, world.getName(), loadedChunks, entityCount, tileEntities);
