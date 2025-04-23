@@ -25,6 +25,7 @@
     "fix.command_block_restrictions.StructureTemplateMixin",
     "fix.exploit.beehive_uncapped_bees.BeehiveBlockEntityOccupantMixin",
     "fix.test_log_spam.TestBlockEntityMixin",
+    "fix.test_log_spam.TestInstanceBlockEntityMixin",
     "perf.command_block_optimization.CommandBlockEntityBaseCommandBlockImplMixin",
     "perf.command_block_optimization.CommandBlockMixin",
     "perf.command_block_optimization.accessor.CommandBlockEntityAccessor"
