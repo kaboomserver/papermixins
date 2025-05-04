@@ -17,4 +17,6 @@ public final class BrigadierConstants {
                     return BrigadierConstants.VANILLA_DISPATCHER;
                 }
             });
+
+    private BrigadierConstants() {}
 }
