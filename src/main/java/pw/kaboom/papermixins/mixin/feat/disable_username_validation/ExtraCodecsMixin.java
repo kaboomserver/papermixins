@@ -13,7 +13,7 @@ public abstract class ExtraCodecsMixin {
      * @reason Filter text instead of throwing error to prevent server crashes
      */
     @Overwrite
-    private static DataResult<String> lambda$static$58(final String string) {
+    private static DataResult<String> lambda$static$64(final String string) {
         return DataResult.success(StringUtil.filterText(string));
     }
 }

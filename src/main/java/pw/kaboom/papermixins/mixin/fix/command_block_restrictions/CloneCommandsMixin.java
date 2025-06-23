@@ -12,8 +12,8 @@ import pw.kaboom.papermixins.util.RestrictionUtil;
 @Mixin(CloneCommands.class)
 public abstract class CloneCommandsMixin {
     @ModifyExpressionValue(method = "clone",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntity;saveCustomOnly" +
-                    "(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/nbt/CompoundTag;"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/TagValueOutput;buildResult()" +
+                    "Lnet/minecraft/nbt/CompoundTag;"))
     private static CompoundTag clone$saveCustomOnly(final CompoundTag original,
                                                     final @Local(ordinal = 0) BlockEntity blockEntity) {
         RestrictionUtil.applyCopyRestrictions(blockEntity.getBlockState().getBlock(), original);

@@ -12,8 +12,8 @@ import pw.kaboom.papermixins.util.RestrictionUtil;
 @Mixin(StructureTemplate.class)
 public abstract class StructureTemplateMixin {
     @ModifyExpressionValue(method = "fillFromWorld",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntity;" +
-                    "saveWithId(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/nbt/CompoundTag;"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/TagValueOutput;buildResult()" +
+                    "Lnet/minecraft/nbt/CompoundTag;"))
     private CompoundTag fillFromWorld$saveWithId(final CompoundTag original,
                                                  final @Local(ordinal = 0) BlockEntity blockEntity) {
         RestrictionUtil.applyCopyRestrictions(blockEntity.getBlockState().getBlock(), original);
