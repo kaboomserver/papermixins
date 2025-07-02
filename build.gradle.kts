@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.6-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.7-R0.1-SNAPSHOT")
 
     compileOnly("space.vectrix.ignite:ignite-api:1.1.0")
     compileOnly(libs.mixin)
