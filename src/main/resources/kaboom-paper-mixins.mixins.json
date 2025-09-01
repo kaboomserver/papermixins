@@ -26,6 +26,7 @@
     "fix.exploit.beehive_uncapped_bees.BeehiveBlockEntityOccupantMixin",
     "fix.exploit.recursive_translate.TranslatableContentsMixin",
     "fix.exploit.uncapped_deathtime.LivingEntityMixin",
+    "fix.exploit.unloaded_block_packets.ServerGamePacketListenerImplMixin",
     "fix.test_log_spam.TestBlockEntityMixin",
     "fix.test_log_spam.TestInstanceBlockEntityMixin",
     "perf.command_block_optimization.CommandBlockEntityBaseCommandBlockImplMixin",
