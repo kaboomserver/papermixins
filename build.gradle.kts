@@ -15,6 +15,7 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.fabricmc.net/")
     maven("https://repo.essentialsx.net/releases/")
+    maven("https://repo.essentialsx.net/snapshots/")
     maven("https://maven.enginehub.org/repo/")
 }
 
@@ -26,7 +27,7 @@ dependencies {
     compileOnly(libs.mixinextras)
     annotationProcessor(libs.mixinextras)
 
-    compileOnly("net.essentialsx:EssentialsX:2.21.1") { isTransitive = false }
+    compileOnly("net.essentialsx:EssentialsX:2.22.0-SNAPSHOT") { isTransitive = false }
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.13.0") { isTransitive = false }
 }
 
