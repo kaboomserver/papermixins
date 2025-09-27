@@ -3,13 +3,13 @@ package pw.kaboom.papermixins.mixin.feat.disable_persistent_data;
 import com.google.common.collect.Lists;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.server.players.GameProfileCache;
+import net.minecraft.server.players.CachedUserNameToIdResolver;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.List;
 
-@Mixin(GameProfileCache.class)
-public abstract class GameProfileCacheMixin {
+@Mixin(CachedUserNameToIdResolver.class)
+public abstract class CachedUserNameToIdResolverMixin {
     // We can't directly reference the type as it has private access,
     // and since we don't do anything besides use it as a type argument
     // it isn't really worth it to access widen.
@@ -22,7 +22,7 @@ public abstract class GameProfileCacheMixin {
         return Lists.newArrayList();
     }
 
-    @WrapMethod(method = "save")
+    @WrapMethod(method = "save(Z)V")
     private void save(final boolean asyncSave, final Operation<Void> original) {
         // Just don't save it.
     }
