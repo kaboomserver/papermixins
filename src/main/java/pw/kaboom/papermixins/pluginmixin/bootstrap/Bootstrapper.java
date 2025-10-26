@@ -194,7 +194,7 @@ public final class Bootstrapper extends SimpleMixinService
         if (runTransform) CURRENT_TRANSFORM_TARGET.set(classBinaryName);
         final byte[] transformedBytes = runTransform ?
                 this.mixinTransformer.transformClass(
-                        MixinEnvironment.getEnvironment(MixinEnvironment.Phase.DEFAULT),
+                        MixinEnvironment.getEnvironment(MixinEnvironment.Phase.PREINIT),
                         classBinaryName,
                         originalBytes)
                 : originalBytes;
