@@ -28,7 +28,7 @@ dependencies {
     annotationProcessor(libs.mixinextras)
 
     compileOnly("net.essentialsx:EssentialsX:2.22.0-SNAPSHOT") { isTransitive = false }
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.13.2") { isTransitive = false }
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.14.0") { isTransitive = false }
 }
 
 java {
