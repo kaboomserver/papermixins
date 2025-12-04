@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.10-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
 
     compileOnly("space.vectrix.ignite:ignite-api:1.1.0")
     compileOnly(libs.mixin)
@@ -28,7 +28,7 @@ dependencies {
     annotationProcessor(libs.mixinextras)
 
     compileOnly("net.essentialsx:EssentialsX:2.22.0-SNAPSHOT") { isTransitive = false }
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.14.0") { isTransitive = false }
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.14.2") { isTransitive = false }
 }
 
 java {
