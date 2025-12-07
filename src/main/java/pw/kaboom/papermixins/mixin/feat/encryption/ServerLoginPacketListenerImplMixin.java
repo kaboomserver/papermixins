@@ -42,7 +42,7 @@ public abstract class ServerLoginPacketListenerImplMixin {
         return original.call(serverId, publicKey, challenge, this.server.usesAuthentication());
     }
 
-    @Mixin(targets = "net/minecraft/server/network/ServerLoginPacketListenerImpl$1", remap = false)
+    @Mixin(targets = "net/minecraft/server/network/ServerLoginPacketListenerImpl$1")
     private abstract static class AuthenticationThreadMixin {
         @Shadow
         @Final
