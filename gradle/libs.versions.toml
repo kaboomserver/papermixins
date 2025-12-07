@@ -1,7 +1,21 @@
 [versions]
+paper-api = "1.21.11-R0.1-SNAPSHOT"
+paper-userdev = "2.0.0-beta.19"
+
+ignite = "1.1.0"
 fabric-mixin = "0.15.2+mixin.0.8.7"
 mixinextras = "0.4.1"
 
+essentialsx = "2.22.0-SNAPSHOT"
+fastasyncworldedit = "2.14.2"
+
 [libraries]
-mixin = { group = "net.fabricmc", name = "sponge-mixin", version.ref = "fabric-mixin" }
-mixinextras = { group = "io.github.llamalad7", name = "mixinextras-common", version.ref = "mixinextras" }
+ignite = { module = "space.vectrix.ignite:ignite-api", version.ref = "ignite" }
+mixin = { module = "net.fabricmc:sponge-mixin", version.ref = "fabric-mixin" }
+mixinextras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixinextras" }
+
+essentialsx = { module = "net.essentialsx:EssentialsX", version.ref = "essentialsx" }
+fastasyncworldedit = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Core", version.ref = "fastasyncworldedit" }
+
+[plugins]
+paper-userdev = { id = "io.papermc.paperweight.userdev", version.ref = "paper-userdev" }

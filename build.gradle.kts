@@ -1,7 +1,7 @@
 plugins {
     id("checkstyle")
     id("java-library")
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.19"
+    alias(libs.plugins.paper.userdev)
 }
 
 group = "pw.kaboom"
@@ -20,15 +20,15 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle(libs.versions.paper.api.get())
 
-    compileOnly("space.vectrix.ignite:ignite-api:1.1.0")
+    compileOnly(libs.ignite)
     compileOnly(libs.mixin)
     compileOnly(libs.mixinextras)
     annotationProcessor(libs.mixinextras)
 
-    compileOnly("net.essentialsx:EssentialsX:2.22.0-SNAPSHOT") { isTransitive = false }
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core:2.14.2") { isTransitive = false }
+    compileOnly(libs.essentialsx) { isTransitive = false }
+    compileOnly(libs.fastasyncworldedit) { isTransitive = false }
 }
 
 java {
