@@ -23,6 +23,7 @@
     "fix.command_block_restrictions.FillCommandMixin",
     "fix.command_block_restrictions.StructureTemplateMixin",
     "fix.exploit.beehive_uncapped_bees.BeehiveBlockEntityOccupantMixin",
+    "fix.exploit.oversized_component.ServerCommonPacketListenerImplMixin",
     "fix.exploit.projectile_huge_power.AbstractHurtingProjectileMixin",
     "fix.exploit.recursive_translate.TranslatableContentsMixin",
     "fix.exploit.uncapped_deathtime.LivingEntityMixin",
