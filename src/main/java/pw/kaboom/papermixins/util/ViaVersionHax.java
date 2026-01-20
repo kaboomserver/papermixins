@@ -32,8 +32,8 @@ public final class ViaVersionHax {
             final ClassLoader viaClassLoader = viaVersionPlugin.getClass()
                     .getClassLoader();
             final Class<?> encodeHandlerClassInstance = viaClassLoader
-                    .loadClass("com.viaversion.viaversion.bukkit.handlers.BukkitEncodeHandler");
-            final Method connectionMethod = encodeHandlerClassInstance.getDeclaredMethod("connection");
+                    .loadClass("com.viaversion.viaversion.platform.ViaEncodeHandler");
+            final Method connectionMethod = encodeHandlerClassInstance.getMethod("connection");
             final Class<?> userConnectionClassInstance = viaClassLoader
                     .loadClass("com.viaversion.viaversion.api.connection.UserConnection");
             final Method getProtocolInfo = userConnectionClassInstance.getMethod("getProtocolInfo");
@@ -54,6 +54,7 @@ public final class ViaVersionHax {
                     )
             );
         } catch (final Exception e) {
+            LOGGER.error("Failed to reflectively access protocol version via ViaVersion, even though the plugin is present", e);
             return new ViaVersionData(true, null);
         }
     });
