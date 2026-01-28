@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import pw.kaboom.papermixins.util.BrigadierConstants;
+import pw.kaboom.papermixins.util.MixinConstants;
 
 @Mixin(Commands.class)
 public abstract class CommandsMixin {
@@ -28,7 +28,7 @@ public abstract class CommandsMixin {
     private void init$arrayList(final Commands.CommandSelection selection, final CommandBuildContext context, final boolean modern,
                                 final CallbackInfo ci) {
         for (final CommandNode<CommandSourceStack> node : this.dispatcher.getRoot().getChildren()) {
-            BrigadierConstants.VANILLA_DISPATCHER.getRoot().addChild(node);
+            MixinConstants.VANILLA_DISPATCHER.getRoot().addChild(node);
         }
     }
 
@@ -38,7 +38,7 @@ public abstract class CommandsMixin {
     private void init$setConsumer(final CommandDispatcher<CommandSourceStack> instance,
                                   final ResultConsumer<CommandSourceStack> consumer, final Operation<Void> original) {
         // Use same consumer for our vanilla dispatcher
-        BrigadierConstants.VANILLA_DISPATCHER.setConsumer(consumer);
+        MixinConstants.VANILLA_DISPATCHER.setConsumer(consumer);
 
         original.call(instance, consumer);
     }

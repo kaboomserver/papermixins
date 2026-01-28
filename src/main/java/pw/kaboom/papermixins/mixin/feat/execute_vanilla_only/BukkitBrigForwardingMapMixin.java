@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import pw.kaboom.papermixins.util.BrigadierConstants;
+import pw.kaboom.papermixins.util.MixinConstants;
 
 @Mixin(BukkitBrigForwardingMap.class)
 public abstract class BukkitBrigForwardingMapMixin {
@@ -21,7 +21,7 @@ public abstract class BukkitBrigForwardingMapMixin {
         }
 
         final String cmd = key.substring("minecraft:".length());
-        final RootCommandNode<CommandSourceStack> root = BrigadierConstants.VANILLA_DISPATCHER_PAPER.getRoot();
+        final RootCommandNode<CommandSourceStack> root = MixinConstants.VANILLA_DISPATCHER_PAPER.getRoot();
         if (root.getChild(cmd) == null) {
             return;
         }
@@ -34,7 +34,7 @@ public abstract class BukkitBrigForwardingMapMixin {
             at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/tree/RootCommandNode;removeCommand(Ljava/lang/String;)V"))
     private void remove$removeCommand(final Object key, final CallbackInfoReturnable<Command> cir) {
         final String string = (String) key; // instanceof check already performed for us
-        final RootCommandNode<CommandSourceStack> root = BrigadierConstants.VANILLA_DISPATCHER_PAPER.getRoot();
+        final RootCommandNode<CommandSourceStack> root = MixinConstants.VANILLA_DISPATCHER_PAPER.getRoot();
         if (root.getChild(string) == null) {
             return;
         }

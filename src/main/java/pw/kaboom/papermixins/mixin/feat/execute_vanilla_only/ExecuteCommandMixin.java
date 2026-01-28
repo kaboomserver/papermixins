@@ -8,7 +8,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.commands.ExecuteCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import pw.kaboom.papermixins.util.BrigadierConstants;
+import pw.kaboom.papermixins.util.MixinConstants;
 
 @Mixin(ExecuteCommand.class)
 public abstract class ExecuteCommandMixin {
@@ -17,6 +17,6 @@ public abstract class ExecuteCommandMixin {
                     "Lcom/mojang/brigadier/tree/RootCommandNode;"))
     private static RootCommandNode<CommandSourceStack> register$getRoot(final CommandDispatcher<CommandSourceStack> instance,
                                                                         final Operation<RootCommandNode<CommandSourceStack>> original) {
-        return BrigadierConstants.VANILLA_DISPATCHER.getRoot();
+        return MixinConstants.VANILLA_DISPATCHER.getRoot();
     }
 }

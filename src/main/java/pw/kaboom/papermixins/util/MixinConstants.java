@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import io.papermc.paper.command.brigadier.ApiMirrorRootNode;
 import net.minecraft.commands.CommandSourceStack;
 
-public final class BrigadierConstants {
+public final class MixinConstants {
     // Static abuse so we can reference stuff in multiple mixins
     // (Mixin classes cannot be referenced directly)
 
@@ -14,9 +14,9 @@ public final class BrigadierConstants {
             new CommandDispatcher<>(new ApiMirrorRootNode() {
                 @Override
                 public CommandDispatcher<CommandSourceStack> getDispatcher() {
-                    return BrigadierConstants.VANILLA_DISPATCHER;
+                    return MixinConstants.VANILLA_DISPATCHER;
                 }
             });
 
-    private BrigadierConstants() {}
+    private MixinConstants() {}
 }
