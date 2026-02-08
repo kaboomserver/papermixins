@@ -59,7 +59,7 @@ public abstract class SimpleMixinService implements IMixinService {
 
     @Override
     public String getSideName() {
-        return Constants.SIDE_UNKNOWN;
+        return Constants.SIDE_DEDICATEDSERVER;
     }
 
     // Unsupported

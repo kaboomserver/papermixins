@@ -18,6 +18,7 @@ import pw.kaboom.papermixins.pluginmixin.interop.IPluginMixinBootstrapper;
 import pw.kaboom.papermixins.pluginmixin.interop.LoadedPluginMixin;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
@@ -39,6 +40,7 @@ public final class Bootstrapper extends SimpleMixinService
 
     private static Bootstrapper instance;
 
+    private IMixinTransformerFactory transformerFactory;
     private IMixinTransformer mixinTransformer;
 
     static {
@@ -69,12 +71,15 @@ public final class Bootstrapper extends SimpleMixinService
         CONFIG_OBJECT.add("mixins", mixinsArray);
 
         MixinBootstrap.init();
+        finishMixinBootstrapping();
         Mixins.addConfiguration(INJECTED_MIXIN_CONFIG_NAME);
         return instance;
     }
 
     @Override
     public void init() {
+        if (transformerFactory == null) throw new IllegalStateException("Didn't receive an IMixinTransformerFactory");
+        this.mixinTransformer = transformerFactory.createTransformer();
         instance = this;
     }
 
@@ -117,7 +122,7 @@ public final class Bootstrapper extends SimpleMixinService
 
             try {
                 outputStreamWriter.flush();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 throw new AssertionError();
             }
 
@@ -194,7 +199,7 @@ public final class Bootstrapper extends SimpleMixinService
         if (runTransform) CURRENT_TRANSFORM_TARGET.set(classBinaryName);
         final byte[] transformedBytes = runTransform ?
                 this.mixinTransformer.transformClass(
-                        MixinEnvironment.getEnvironment(MixinEnvironment.Phase.PREINIT),
+                        MixinEnvironment.getCurrentEnvironment(),
                         classBinaryName,
                         originalBytes)
                 : originalBytes;
@@ -209,8 +214,8 @@ public final class Bootstrapper extends SimpleMixinService
 
     @Override
     public void offer(final IMixinInternal internal) {
-        if (internal instanceof final IMixinTransformerFactory transformerFactory) {
-            this.mixinTransformer = transformerFactory.createTransformer();
+        if (internal instanceof final IMixinTransformerFactory factory) {
+            this.transformerFactory = factory;
         }
     }
 
@@ -218,5 +223,17 @@ public final class Bootstrapper extends SimpleMixinService
     @Override
     public URL[] getClassPath() {
         return new URL[0];
+    }
+
+    private static void finishMixinBootstrapping() {
+        try {
+            final Method method = MixinEnvironment.class.getDeclaredMethod("gotoPhase", MixinEnvironment.Phase.class);
+            method.setAccessible(true);
+
+            method.invoke(null, MixinEnvironment.Phase.INIT);
+            method.invoke(null, MixinEnvironment.Phase.DEFAULT);
+        } catch (final Exception e) {
+            throw new IllegalStateException("Failed to finish mixin bootstrapping", e);
+        }
     }
 }

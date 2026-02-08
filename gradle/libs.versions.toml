@@ -7,7 +7,7 @@ fabric-mixin = "0.15.2+mixin.0.8.7"
 mixinextras = "0.4.1"
 
 essentialsx = "2.22.0-SNAPSHOT"
-fastasyncworldedit = "2.14.2"
+fastasyncworldedit = "2.15.0"
 
 [libraries]
 ignite = { module = "space.vectrix.ignite:ignite-api", version.ref = "ignite" }
