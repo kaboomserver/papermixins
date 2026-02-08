@@ -1,5 +1,6 @@
 package pw.kaboom.papermixins.pluginmixin.bootstrap;
 
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.service.IGlobalPropertyService;
 import org.spongepowered.asm.service.IPropertyKey;
 
@@ -50,7 +51,7 @@ public final class SimpleMixinPropertyService implements IGlobalPropertyService 
         }
 
         @Override
-        public String toString() {
+        public @NonNull String toString() {
             return this.key;
         }
 

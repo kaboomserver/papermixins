@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.launch.MixinBootstrap;
@@ -45,7 +46,6 @@ public final class Bootstrapper extends SimpleMixinService
 
     static {
         CONFIG_OBJECT.addProperty("required", true);
-        CONFIG_OBJECT.addProperty("plugin", "pw.kaboom.papermixins.pluginmixin.bootstrap.MixinExtrasConfigPlugin");
         CONFIG_OBJECT.addProperty("package", "pw.kaboom.papermixins.pluginmixin.mixins");
 
         final JsonObject injectors = new JsonObject();
@@ -72,6 +72,8 @@ public final class Bootstrapper extends SimpleMixinService
 
         MixinBootstrap.init();
         finishMixinBootstrapping();
+        MixinExtrasBootstrap.init();
+
         Mixins.addConfiguration(INJECTED_MIXIN_CONFIG_NAME);
         return instance;
     }
