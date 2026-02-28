@@ -27,6 +27,7 @@
     "fix.exploit.oversized_component.ClientboundBossEventPacketMixin",
     "fix.exploit.oversized_component.PacketMixin",
     "fix.exploit.oversized_component.ServerCommonPacketListenerImplMixin",
+    "fix.exploit.oversized_component.Varint21LengthFieldPrependerMixin",
     "fix.exploit.projectile_huge_power.AbstractHurtingProjectileMixin",
     "fix.exploit.recursive_translate.TranslatableContentsMixin",
     "fix.exploit.uncapped_deathtime.LivingEntityMixin",
