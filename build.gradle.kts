@@ -14,7 +14,6 @@ base {
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.fabricmc.net/")
-    maven("https://repo.essentialsx.net/releases/")
     maven("https://repo.essentialsx.net/snapshots/")
     maven("https://maven.enginehub.org/repo/")
 }
