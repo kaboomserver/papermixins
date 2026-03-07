@@ -1,6 +1,6 @@
 [versions]
-paper-api = "1.21.11-R0.1-SNAPSHOT"
-paper-userdev = "2.0.0-beta.19"
+paper-api = "26.1.1.build.14-alpha"
+paper-userdev = "2.0.0-beta.21"
 
 ignite = "1.2.0"
 mixin = "0.17.0+mixin.0.8.7"
