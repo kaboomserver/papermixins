@@ -20,7 +20,7 @@ import pw.kaboom.papermixins.util.ViaVersionHax;
 public abstract class ServerLoginPacketListenerImplMixin {
     @Shadow
     @Final
-    MinecraftServer server;
+    private MinecraftServer server;
 
     @Shadow
     @Final
