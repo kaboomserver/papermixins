@@ -8,6 +8,7 @@ mixinextras = "0.5.3"
 
 essentialsx = "2.22.0-SNAPSHOT"
 fastasyncworldedit = "2.15.0"
+cloudburstmc-protocol = "3.0.0.Beta12-20260129.225905-2"
 
 [libraries]
 ignite = { module = "space.vectrix.ignite:ignite-api", version.ref = "ignite" }
@@ -16,6 +17,7 @@ mixinextras = { module = "io.github.llamalad7:mixinextras-common", version.ref =
 
 essentialsx = { module = "net.essentialsx:EssentialsX", version.ref = "essentialsx" }
 fastasyncworldedit = { module = "com.fastasyncworldedit:FastAsyncWorldEdit-Core", version.ref = "fastasyncworldedit" }
+cloudburstmc-protocol = { module = "org.cloudburstmc.protocol:bedrock-codec", version.ref = "cloudburstmc-protocol" }
 
 [plugins]
 paper-userdev = { id = "io.papermc.paperweight.userdev", version.ref = "paper-userdev" }

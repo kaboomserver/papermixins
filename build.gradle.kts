@@ -14,8 +14,10 @@ base {
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://maven.fabricmc.net/")
+
     maven("https://repo.essentialsx.net/snapshots/")
     maven("https://maven.enginehub.org/repo/")
+    maven("https://repo.opencollab.dev/main/")
 }
 
 dependencies {
@@ -28,6 +30,7 @@ dependencies {
 
     compileOnly(libs.essentialsx) { isTransitive = false }
     compileOnly(libs.fastasyncworldedit) { isTransitive = false }
+    compileOnly(libs.cloudburstmc.protocol) { isTransitive = false }
 }
 
 java {
