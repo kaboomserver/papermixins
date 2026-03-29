@@ -3,13 +3,13 @@ package pw.kaboom.papermixins.mixin.feat.encryption;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
+import io.papermc.paper.configuration.GlobalConfiguration;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.login.ClientboundHelloPacket;
-import net.minecraft.network.protocol.login.ServerboundHelloPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerLoginPacketListenerImpl;
+import org.spigotmc.SpigotConfig;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,10 +28,10 @@ public abstract class ServerLoginPacketListenerImplMixin {
 
     @WrapOperation(method = "handleHello",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;usesAuthentication()Z"))
-    private boolean handleHello$usesAuthentication(final MinecraftServer instance, final Operation<Boolean> original,
-                                                   final @Local(argsOnly = true) ServerboundHelloPacket helloPacket) {
+    private boolean handleHello$usesAuthentication(final MinecraftServer instance, final Operation<Boolean> original) {
         return original.call(instance)
-                || ViaVersionHax.getOriginalVersion(this.connection.channel) >= 766;
+            || (ViaVersionHax.getOriginalVersion(this.connection.channel) >= 766
+            && !SpigotConfig.bungee && !GlobalConfiguration.get().proxies.velocity.enabled);
     }
 
     @WrapOperation(method = "handleHello",
