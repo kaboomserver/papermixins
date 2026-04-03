@@ -25,11 +25,11 @@ public final class MixinConstants {
     public static final Set<Class<? extends Packet<?>>> FAIL_IGNORED_PACKETS = Set.of(
         ClientboundSetTitleTextPacket.class, ClientboundSetSubtitleTextPacket.class,
         ClientboundSetActionBarTextPacket.class, ClientboundSetPlayerTeamPacket.class,
-        ClientboundLevelParticlesPacket.class,  ClientboundSetEntityDataPacket.class,
+        ClientboundLevelParticlesPacket.class, ClientboundSetEntityDataPacket.class,
         ClientboundContainerSetContentPacket.class, ClientboundContainerSetSlotPacket.class,
         ClientboundLevelChunkWithLightPacket.class, ClientboundBlockEntityDataPacket.class,
         ClientboundSetPlayerInventoryPacket.class, ClientboundSetObjectivePacket.class,
-        ClientboundSetEquipmentPacket.class
+        ClientboundSetEquipmentPacket.class, ClientboundSetCursorItemPacket.class
     );
 
     private MixinConstants() {}
