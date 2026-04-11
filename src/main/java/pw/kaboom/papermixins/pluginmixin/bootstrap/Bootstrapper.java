@@ -111,6 +111,16 @@ public final class Bootstrapper extends SimpleMixinService
     }
 
     @Override
+    public IFeatureValidator getFeatureValidator() {
+        return IFeatureValidator.ALLOW_ALL;
+    }
+
+    @Override
+    public IAdviceProvider getAdviceProvider() {
+        return IAdviceProvider.GENERIC;
+    }
+
+    @Override
     protected ILogger createLogger(final String name) {
         return new LoggerAdapterSLF4J(PARENT, name);
     }
