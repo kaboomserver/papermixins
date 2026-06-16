@@ -16,6 +16,7 @@
     "feat.execute_vanilla_only.BukkitBrigForwardingMapMixin",
     "feat.execute_vanilla_only.CommandsMixin",
     "feat.execute_vanilla_only.ExecuteCommandMixin",
+    "feat.no_session_id.ServerConnectionListenerMixin",
     "feat.plugin_mixins.CraftServerMixin",
     "feat.plugin_mixins.LibraryLoaderMixin",
     "feat.plugin_mixins.PluginClassLoaderMixin",
