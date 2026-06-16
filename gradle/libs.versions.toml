@@ -1,14 +1,14 @@
 [versions]
-paper-api = "26.1.2.build.+"
+paper-api = "26.2.build.+"
 paper-userdev = "2.0.0-beta.21"
 
 ignite = "1.2.1"
 mixin = "0.17.1+mixin.0.8.7"
 mixinextras = "0.5.3"
 
-essentialsx = "2.22.0-SNAPSHOT"
-fastasyncworldedit = "2.15.0"
-cloudburstmc-protocol = "3.0.0.Beta12-20260129.225905-2"
+essentialsx = "2.22.1-SNAPSHOT"
+fastasyncworldedit = "2.15.3"
+cloudburstmc-protocol = "3.0.0.Beta12-20260602.165120-25"
 
 [libraries]
 ignite = { module = "space.vectrix.ignite:ignite-api", version.ref = "ignite" }
