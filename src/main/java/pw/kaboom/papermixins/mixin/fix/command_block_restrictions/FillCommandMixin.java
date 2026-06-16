@@ -9,9 +9,9 @@ import pw.kaboom.papermixins.util.RestrictionUtil;
 
 @Mixin(FillCommand.class)
 public abstract class FillCommandMixin {
-    @ModifyVariable(method = "fillBlocks", at = @At("HEAD"), argsOnly = true)
-    private static BlockInput fillBlocks(final BlockInput block) {
-        RestrictionUtil.applyCopyRestrictions(block.getState().getBlock(), block.tag);
-        return block;
+    @ModifyVariable(method = "fillBlocks", at = @At("HEAD"), argsOnly = true, name = "target")
+    private static BlockInput fillBlocks(final BlockInput target) {
+        RestrictionUtil.applyCopyRestrictions(target.getState().getBlock(), target.tag);
+        return target;
     }
 }

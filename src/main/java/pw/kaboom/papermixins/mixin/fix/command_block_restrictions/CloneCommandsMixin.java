@@ -15,7 +15,7 @@ public abstract class CloneCommandsMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/TagValueOutput;buildResult()" +
                     "Lnet/minecraft/nbt/CompoundTag;"))
     private static CompoundTag clone$saveCustomOnly(final CompoundTag original,
-                                                    final @Local(ordinal = 0) BlockEntity blockEntity) {
+                                                    final @Local(name = "blockEntity") BlockEntity blockEntity) {
         RestrictionUtil.applyCopyRestrictions(blockEntity.getBlockState().getBlock(), original);
         return original;
     }

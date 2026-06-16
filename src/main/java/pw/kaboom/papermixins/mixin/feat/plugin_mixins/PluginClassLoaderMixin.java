@@ -61,9 +61,9 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
             at = @At(value = "INVOKE", target = "Lcom/google/common/io/ByteStreams;toByteArray(Ljava/io/InputStream;)[B"))
     private byte[] findClass$toByteArray(final InputStream in,
                                          final Operation<byte[]> original,
-                                         @Local(argsOnly = true) final String binaryName) {
+                                         @Local(argsOnly = true, name = "name") final String name) {
         final byte[] asByteArray = original.call(in);
         if (this.papermixins$pluginMixinBootstrapper == null) return asByteArray;
-        return this.papermixins$pluginMixinBootstrapper.transformClassBytes(binaryName, asByteArray);
+        return this.papermixins$pluginMixinBootstrapper.transformClassBytes(name, asByteArray);
     }
 }
