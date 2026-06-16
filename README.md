@@ -1,8 +1,6 @@
 # papermixins
 
-Paper Mixins is a Ignite mod that applies various Free-OP related patches to Paper.
-
-The mod is created for the Kaboom server.
+Paper Mixins is an Ignite mod that applies various Free-OP related patches to Paper.
 
 ## Configuring
 
