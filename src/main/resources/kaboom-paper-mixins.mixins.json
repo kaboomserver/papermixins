@@ -35,7 +35,6 @@
     "fix.exploit.uncapped_deathtime.LivingEntityMixin",
     "fix.exploit.unloaded_block_packets.ServerGamePacketListenerImplMixin",
     "fix.test_log_spam.TestBlockEntityMixin",
-    "fix.test_log_spam.TestInstanceBlockEntityMixin",
     "perf.command_block_optimization.CommandBlockEntityBaseCommandBlockImplMixin",
     "perf.command_block_optimization.CommandBlockMixin",
     "perf.command_block_optimization.accessor.CommandBlockEntityAccessor"
