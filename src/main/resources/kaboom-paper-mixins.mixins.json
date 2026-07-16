@@ -22,6 +22,7 @@
     "fix.command_block_restrictions.CloneCommandsMixin",
     "fix.command_block_restrictions.FillCommandMixin",
     "fix.command_block_restrictions.StructureTemplateMixin",
+    "fix.empty_tab.PlayerListMixin",
     "fix.exploit.beehive_uncapped_bees.BeehiveBlockEntityOccupantMixin",
     "fix.exploit.cmd_block_uncaught_err.BaseCommandBlockMixin",
     "fix.exploit.offhand_crash.ServerGamePacketListenerImplMixin",

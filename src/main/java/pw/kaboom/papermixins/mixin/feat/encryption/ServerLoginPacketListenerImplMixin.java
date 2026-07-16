@@ -16,6 +16,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import pw.kaboom.papermixins.util.ViaVersionHax;
 
+import static pw.kaboom.papermixins.util.ProtocolVersions.v1_20_6;
+
 @Mixin(ServerLoginPacketListenerImpl.class)
 public abstract class ServerLoginPacketListenerImplMixin {
     @Shadow
@@ -30,7 +32,7 @@ public abstract class ServerLoginPacketListenerImplMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;usesAuthentication()Z"))
     private boolean handleHello$usesAuthentication(final MinecraftServer instance, final Operation<Boolean> original) {
         return original.call(instance)
-            || (ViaVersionHax.getOriginalVersion(this.connection.channel) >= 766
+            || (ViaVersionHax.getOriginalVersion(this.connection.channel) >= v1_20_6
             && !SpigotConfig.bungee && !GlobalConfiguration.get().proxies.velocity.enabled);
     }
 
