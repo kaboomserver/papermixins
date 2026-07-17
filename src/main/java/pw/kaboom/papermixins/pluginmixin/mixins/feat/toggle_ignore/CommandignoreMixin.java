@@ -18,7 +18,7 @@ public abstract class CommandignoreMixin {
     private boolean run$isIgnoredPlayer(final User user,
                                         final @SuppressWarnings("deprecation") IUser toCheck,
                                         final Operation<Boolean> original,
-                                        final @Local(argsOnly = true) String[] args) {
+                                        final @Local(argsOnly = true, name = "args") String[] args) {
         if (args.length < 2) return original.call(user, toCheck);
 
         final Boolean targetValue = switch (args[1].toLowerCase()) {

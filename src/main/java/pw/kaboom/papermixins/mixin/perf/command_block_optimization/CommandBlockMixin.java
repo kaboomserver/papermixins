@@ -14,9 +14,9 @@ public abstract class CommandBlockMixin {
     @WrapOperation(method = "tick",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;" +
             "scheduleTick(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;I)V"))
-    private void tick$scheduleTick(final ServerLevel instance, final BlockPos blockPos,
-                                   final Block block, final int delay,
-                                   final Operation<Void> original) {
+    private static void tick$scheduleTick(final ServerLevel instance, final BlockPos blockPos,
+                                          final Block block, final int delay,
+                                          final Operation<Void> original) {
         // Don't schedule the tick here
     }
 }

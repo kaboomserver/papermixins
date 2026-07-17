@@ -14,8 +14,8 @@ public abstract class StructureTemplateMixin {
     @ModifyExpressionValue(method = "fillFromWorld",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/TagValueOutput;buildResult()" +
                     "Lnet/minecraft/nbt/CompoundTag;"))
-    private CompoundTag fillFromWorld$saveWithId(final CompoundTag original,
-                                                 final @Local(name = "blockEntity") BlockEntity blockEntity) {
+    private static CompoundTag fillFromWorld$saveWithId(final CompoundTag original,
+                                                        final @Local(name = "blockEntity") BlockEntity blockEntity) {
         RestrictionUtil.applyCopyRestrictions(blockEntity.getBlockState().getBlock(), original);
         return original;
     }

@@ -24,7 +24,7 @@ public abstract class CommandgcMixin {
             at = @At(value = "INVOKE", target = "Lorg/bukkit/Server;getWorlds()Ljava/util/List;"),
             require = 0)
     private List<World> run$getWorlds(final Server instance, final Operation<List<World>> original,
-                                      final @Local(argsOnly = true) CommandSource sender) {
+                                      final @Local(argsOnly = true, name = "sender") CommandSource sender) {
         for (final World world : original.call(instance)) {
             final World.Environment worldEnvironment = world.getEnvironment();
 

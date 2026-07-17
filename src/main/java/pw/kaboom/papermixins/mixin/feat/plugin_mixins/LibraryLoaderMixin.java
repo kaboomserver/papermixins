@@ -11,7 +11,7 @@ import pw.kaboom.papermixins.pluginmixin.PluginMixinSeparationClassLoader;
 public abstract class LibraryLoaderMixin {
     @WrapOperation(method = "createLoader(Lorg/bukkit/plugin/PluginDescriptionFile;Ljava/util/List;)Ljava/lang/ClassLoader;",
             at = @At(value = "INVOKE", target = "Ljava/lang/Class;getClassLoader()Ljava/lang/ClassLoader;"))
-    private ClassLoader createLoader$getClassLoader(final Class<?> instance, final Operation<ClassLoader> original) {
+    private static ClassLoader createLoader$getClassLoader(final Class<?> instance, final Operation<ClassLoader> original) {
         return new PluginMixinSeparationClassLoader(original.call(instance), null);
     }
 }

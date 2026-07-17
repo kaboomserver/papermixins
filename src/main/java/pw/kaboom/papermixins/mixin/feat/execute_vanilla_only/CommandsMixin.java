@@ -35,8 +35,8 @@ public abstract class CommandsMixin {
     @WrapOperation(method = "<init>(Lnet/minecraft/commands/Commands$CommandSelection;Lnet/minecraft/commands/CommandBuildContext;Z)V",
             at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;setConsumer"
                     + "(Lcom/mojang/brigadier/ResultConsumer;)V"))
-    private void init$setConsumer(final CommandDispatcher<CommandSourceStack> instance,
-                                  final ResultConsumer<CommandSourceStack> consumer, final Operation<Void> original) {
+    private static void init$setConsumer(final CommandDispatcher<CommandSourceStack> instance,
+                                         final ResultConsumer<CommandSourceStack> consumer, final Operation<Void> original) {
         // Use same consumer for our vanilla dispatcher
         MixinConstants.VANILLA_DISPATCHER.setConsumer(consumer);
 
