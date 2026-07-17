@@ -13,8 +13,8 @@ import java.util.function.Consumer;
 @Mixin(TestInstanceBlockEntity.class)
 public abstract class TestInstanceBlockEntityMixin {
     @WrapMethod(method = "export")
-    private static boolean export(final ServerLevel level, final Identifier test,
-                                  final Consumer<Component> messageSender, final Operation<Boolean> original) {
+    private static boolean export(final ServerLevel level, final Identifier structureId,
+                                  final Consumer<Component> feedbackOutput, final Operation<Boolean> original) {
         return true; // fail
     }
 }

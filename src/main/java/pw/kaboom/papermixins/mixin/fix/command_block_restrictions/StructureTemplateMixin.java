@@ -15,7 +15,7 @@ public abstract class StructureTemplateMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/TagValueOutput;buildResult()" +
                     "Lnet/minecraft/nbt/CompoundTag;"))
     private CompoundTag fillFromWorld$saveWithId(final CompoundTag original,
-                                                 final @Local(ordinal = 0) BlockEntity blockEntity) {
+                                                 final @Local(name = "blockEntity") BlockEntity blockEntity) {
         RestrictionUtil.applyCopyRestrictions(blockEntity.getBlockState().getBlock(), original);
         return original;
     }
