@@ -26,7 +26,7 @@ public final class PaperMixinsMixinPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(final String targetClassName, final String mixinClassName) {
         if (!mixinClassName.startsWith(this.mixinPackage)) {
             LOGGER.warn("Expected mixin '{}' to start with package root '{}', treating as foreign and disabling!",
-                    mixinClassName, this.mixinPackage);
+                mixinClassName, this.mixinPackage);
             return false;
         }
 

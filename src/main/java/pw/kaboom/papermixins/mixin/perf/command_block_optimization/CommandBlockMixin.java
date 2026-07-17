@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(CommandBlock.class)
 public abstract class CommandBlockMixin {
     @WrapOperation(method = "tick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;" +
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;" +
             "scheduleTick(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;I)V"))
     private static void tick$scheduleTick(final ServerLevel instance, final BlockPos blockPos,
                                           final Block block, final int delay,

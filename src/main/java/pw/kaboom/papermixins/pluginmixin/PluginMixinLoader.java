@@ -31,7 +31,7 @@ public final class PluginMixinLoader {
     static {
         final String packageName = PluginMixinLoader.class.getPackageName();
         final String mixinPackagePath = packageName.replace('.', '/')
-                + "/mixins/";
+            + "/mixins/";
         final String absoluteFile = PluginMixinLoader.class.getTypeName().replace('.', '/') + ".class";
         final ClassLoader classLoader = PluginMixinLoader.class.getClassLoader();
         final URL absoluteURL = classLoader.getResource(absoluteFile);
@@ -83,11 +83,11 @@ public final class PluginMixinLoader {
                     loadedMixinCount++;
                     final String binaryName = classNode.name.replace('/', '.');
                     PLUGIN_MIXINS.computeIfAbsent(targetPlugin, key -> new ObjectArrayList<>())
-                            .add(new LoadedPluginMixin(binaryName,
-                                    classNode,
-                                    targetClasses,
-                                    binaryName.substring(mixinPackagePath.length())
-                            ));
+                        .add(new LoadedPluginMixin(binaryName,
+                            classNode,
+                            targetClasses,
+                            binaryName.substring(mixinPackagePath.length())
+                        ));
                 } catch (final IOException e) {
                     throw new IllegalStateException("Couldn't open entry in zip" + e);
                 }

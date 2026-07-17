@@ -13,8 +13,8 @@ import pw.kaboom.papermixins.util.MixinConstants;
 @Mixin(ExecuteCommand.class)
 public abstract class ExecuteCommandMixin {
     @WrapOperation(method = "register",
-            at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;getRoot()" +
-                    "Lcom/mojang/brigadier/tree/RootCommandNode;"))
+        at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;getRoot()" +
+            "Lcom/mojang/brigadier/tree/RootCommandNode;"))
     private static RootCommandNode<CommandSourceStack> register$getRoot(final CommandDispatcher<CommandSourceStack> instance,
                                                                         final Operation<RootCommandNode<CommandSourceStack>> original) {
         return MixinConstants.VANILLA_DISPATCHER.getRoot();

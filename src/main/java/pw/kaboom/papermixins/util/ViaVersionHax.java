@@ -15,10 +15,10 @@ public final class ViaVersionHax {
     private static final Logger LOGGER = LoggerFactory.getLogger("papermixins.viaversionhax");
 
     private record ViaVersionMethods(
-            Method connectionMethod,
-            Method getProtocolInfo,
-            Method getProtocolVersion,
-            Method getProtocolVersionNumber
+        Method connectionMethod,
+        Method getProtocolInfo,
+        Method getProtocolVersion,
+        Method getProtocolVersionNumber
     ) {
     }
 
@@ -30,28 +30,28 @@ public final class ViaVersionHax {
         if (viaVersionPlugin == null) return new ViaVersionData(false, null);
         try {
             final ClassLoader viaClassLoader = viaVersionPlugin.getClass()
-                    .getClassLoader();
+                .getClassLoader();
             final Class<?> encodeHandlerClassInstance = viaClassLoader
-                    .loadClass("com.viaversion.viaversion.platform.ViaEncodeHandler");
+                .loadClass("com.viaversion.viaversion.platform.ViaEncodeHandler");
             final Method connectionMethod = encodeHandlerClassInstance.getMethod("connection");
             final Class<?> userConnectionClassInstance = viaClassLoader
-                    .loadClass("com.viaversion.viaversion.api.connection.UserConnection");
+                .loadClass("com.viaversion.viaversion.api.connection.UserConnection");
             final Method getProtocolInfo = userConnectionClassInstance.getMethod("getProtocolInfo");
             final Class<?> protocolInfoClassInstance = viaClassLoader
-                    .loadClass("com.viaversion.viaversion.api.connection.ProtocolInfo");
+                .loadClass("com.viaversion.viaversion.api.connection.ProtocolInfo");
             final Method getProtocolVersion = protocolInfoClassInstance.getMethod("protocolVersion");
             final Class<?> protocolVersionClassInstance = viaClassLoader.loadClass(
-                    "com.viaversion.viaversion.api.protocol.version.ProtocolVersion"
+                "com.viaversion.viaversion.api.protocol.version.ProtocolVersion"
             );
             final Method getProtocolVersionNumber = protocolVersionClassInstance.getMethod("getVersion");
             return new ViaVersionData(
-                    true,
-                    new ViaVersionMethods(
-                            connectionMethod,
-                            getProtocolInfo,
-                            getProtocolVersion,
-                            getProtocolVersionNumber
-                    )
+                true,
+                new ViaVersionMethods(
+                    connectionMethod,
+                    getProtocolInfo,
+                    getProtocolVersion,
+                    getProtocolVersionNumber
+                )
             );
         } catch (final Exception e) {
             LOGGER.error("Failed to reflectively access protocol version via ViaVersion, even though the plugin is present", e);

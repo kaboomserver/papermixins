@@ -21,8 +21,8 @@ import java.util.List;
 @Mixin(Commandgc.class)
 public abstract class CommandgcMixin {
     @WrapOperation(method = "run",
-            at = @At(value = "INVOKE", target = "Lorg/bukkit/Server;getWorlds()Ljava/util/List;"),
-            require = 0)
+        at = @At(value = "INVOKE", target = "Lorg/bukkit/Server;getWorlds()Ljava/util/List;"),
+        require = 0)
     private List<World> run$getWorlds(final Server instance, final Operation<List<World>> original,
                                       final @Local(argsOnly = true, name = "sender") CommandSource sender) {
         for (final World world : original.call(instance)) {

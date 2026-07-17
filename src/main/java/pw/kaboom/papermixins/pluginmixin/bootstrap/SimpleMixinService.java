@@ -3,11 +3,17 @@ package pw.kaboom.papermixins.pluginmixin.bootstrap;
 import org.spongepowered.asm.launch.platform.container.IContainerHandle;
 import org.spongepowered.asm.logging.ILogger;
 import org.spongepowered.asm.mixin.MixinEnvironment;
-import org.spongepowered.asm.service.*;
+import org.spongepowered.asm.service.IClassTracker;
+import org.spongepowered.asm.service.IMixinAuditTrail;
+import org.spongepowered.asm.service.IMixinService;
+import org.spongepowered.asm.service.ITransformerProvider;
 import org.spongepowered.asm.util.Constants;
 import org.spongepowered.asm.util.ReEntranceLock;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class SimpleMixinService implements IMixinService {
     private static final IContainerHandle PRIMARY_CONTAINER = new EmptyContainerHandle();

@@ -6,6 +6,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(CommandBlockEntity.class)
 public interface CommandBlockEntityAccessor {
-  @Invoker
-  void invokeScheduleTick();
+    @Invoker
+    void invokeScheduleTick();
 }

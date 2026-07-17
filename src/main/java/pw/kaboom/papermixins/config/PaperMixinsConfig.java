@@ -27,9 +27,9 @@ public final class PaperMixinsConfig {
             return;
         }
 
-        for (final Map.Entry<Object, Object> entry: properties.entrySet()) {
-            final String key = (String)entry.getKey();
-            final String value = (String)entry.getValue();
+        for (final Map.Entry<Object, Object> entry : properties.entrySet()) {
+            final String key = (String) entry.getKey();
+            final String value = (String) entry.getValue();
 
             final boolean parsedValue;
             switch (value) {

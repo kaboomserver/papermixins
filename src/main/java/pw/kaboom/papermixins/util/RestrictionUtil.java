@@ -6,7 +6,8 @@ import net.minecraft.world.level.block.CommandBlock;
 import net.minecraft.world.level.block.StructureBlock;
 
 public final class RestrictionUtil {
-    private RestrictionUtil() {}
+    private RestrictionUtil() {
+    }
 
     public static void applyCopyRestrictions(final Block block, final CompoundTag compoundTag) {
         if (compoundTag == null) return; // Only modify blocks with NBT data

@@ -33,7 +33,7 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
     private IPluginMixinBootstrapper papermixins$pluginMixinBootstrapper;
 
     @Inject(method = "<init>",
-            at = @At(value = "INVOKE", target = "Ljava/lang/Class;forName(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;"))
+        at = @At(value = "INVOKE", target = "Ljava/lang/Class;forName(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;"))
     private void init$afterSuperInit(final ClassLoader parent,
                                      final PluginDescriptionFile description,
                                      final File dataFolder,
@@ -48,17 +48,17 @@ public abstract class PluginClassLoaderMixin extends URLClassLoader {
             final Class<?> bootstrapperClass = Class.forName("pw.kaboom.papermixins.pluginmixin.bootstrap.Bootstrapper", true, this);
             final Method initMethod = bootstrapperClass.getDeclaredMethod("init", URLClassLoader.class, URL.class, List.class);
             this.papermixins$pluginMixinBootstrapper =
-                    (IPluginMixinBootstrapper) initMethod.invoke(null,
-                            this,
-                            file.toURI().toURL(),
-                            ourClassLoader.mixins);
+                (IPluginMixinBootstrapper) initMethod.invoke(null,
+                    this,
+                    file.toURI().toURL(),
+                    ourClassLoader.mixins);
         } catch (final Exception e) {
             PluginMixinLoader.LOGGER.error("Failed to invoke PluginMixin bootstrapper, not applying mixins", e);
         }
     }
 
     @WrapOperation(method = "findClass",
-            at = @At(value = "INVOKE", target = "Lcom/google/common/io/ByteStreams;toByteArray(Ljava/io/InputStream;)[B"))
+        at = @At(value = "INVOKE", target = "Lcom/google/common/io/ByteStreams;toByteArray(Ljava/io/InputStream;)[B"))
     private byte[] findClass$toByteArray(final InputStream in,
                                          final Operation<byte[]> original,
                                          @Local(argsOnly = true, name = "name") final String name) {

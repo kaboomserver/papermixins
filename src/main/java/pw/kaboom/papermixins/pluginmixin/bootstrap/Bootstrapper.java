@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("deprecated")
 public final class Bootstrapper extends SimpleMixinService
-        implements IClassProvider, IClassBytecodeProvider, IPluginMixinBootstrapper {
+    implements IClassProvider, IClassBytecodeProvider, IPluginMixinBootstrapper {
     private static final String INJECTED_MIXIN_CONFIG_NAME = "mixins.json";
     public static final String ID = "paper-mixins$pluginmixin";
 
@@ -185,7 +185,7 @@ public final class Bootstrapper extends SimpleMixinService
 
     @Override
     public ClassNode getClassNode(final String name, final boolean runTransformers, final int readerFlags)
-            throws ClassNotFoundException, IOException {
+        throws ClassNotFoundException, IOException {
         final String binaryName = name.replace('/', '.');
         final String resourceName = name.replace('.', '/') + ".class";
 
@@ -193,7 +193,7 @@ public final class Bootstrapper extends SimpleMixinService
         if (node != null) return node;
 
         final ClassLoader targetLoader = TARGETS.contains(binaryName) && !Objects.equals(CURRENT_TRANSFORM_TARGET.get(), binaryName)
-                ? PARENT : UNMODIFIED_PARENT;
+            ? PARENT : UNMODIFIED_PARENT;
 
         final InputStream stream = findClassBytesRecursive(targetLoader, resourceName);
         if (stream == null) throw new ClassNotFoundException(binaryName);
@@ -210,11 +210,11 @@ public final class Bootstrapper extends SimpleMixinService
         final boolean runTransform = TARGETS.contains(classBinaryName);
         if (runTransform) CURRENT_TRANSFORM_TARGET.set(classBinaryName);
         final byte[] transformedBytes = runTransform ?
-                this.mixinTransformer.transformClass(
-                        MixinEnvironment.getCurrentEnvironment(),
-                        classBinaryName,
-                        originalBytes)
-                : originalBytes;
+            this.mixinTransformer.transformClass(
+                MixinEnvironment.getCurrentEnvironment(),
+                classBinaryName,
+                originalBytes)
+            : originalBytes;
         if (runTransform) CURRENT_TRANSFORM_TARGET.remove();
 
         if (runTransform || !CLASS_NODE_CACHE.containsKey(classBinaryName)) {

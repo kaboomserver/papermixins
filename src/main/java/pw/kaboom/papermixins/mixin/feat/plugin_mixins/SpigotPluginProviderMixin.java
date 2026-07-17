@@ -20,11 +20,11 @@ public abstract class SpigotPluginProviderMixin {
     private PluginDescriptionFile description;
 
     @ModifyArg(method = "createInstance()Lorg/bukkit/plugin/java/JavaPlugin;",
-            at = @At(value = "INVOKE", target = "Lorg/bukkit/plugin/java/PluginClassLoader;<init>" +
-                    "(Ljava/lang/ClassLoader;Lorg/bukkit/plugin/PluginDescriptionFile;Ljava/io/File;Ljava/io/File;" +
-                    "Ljava/lang/ClassLoader;Ljava/util/jar/JarFile;" +
-                    "Lio/papermc/paper/plugin/provider/entrypoint/DependencyContext;)V"),
-            index = 0)
+        at = @At(value = "INVOKE", target = "Lorg/bukkit/plugin/java/PluginClassLoader;<init>" +
+            "(Ljava/lang/ClassLoader;Lorg/bukkit/plugin/PluginDescriptionFile;Ljava/io/File;Ljava/io/File;" +
+            "Ljava/lang/ClassLoader;Ljava/util/jar/JarFile;" +
+            "Lio/papermc/paper/plugin/provider/entrypoint/DependencyContext;)V"),
+        index = 0)
     private ClassLoader createInstance$newPluginClassLoader(final ClassLoader parent) {
         final String pluginName = this.description.getName();
         final List<LoadedPluginMixin> pluginMixins = PluginMixinLoader.getPluginMixins(pluginName);

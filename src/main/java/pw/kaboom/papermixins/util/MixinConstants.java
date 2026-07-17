@@ -15,12 +15,12 @@ public final class MixinConstants {
     public static final CommandDispatcher<CommandSourceStack> VANILLA_DISPATCHER = new CommandDispatcher<>();
 
     public static final CommandDispatcher<io.papermc.paper.command.brigadier.CommandSourceStack> VANILLA_DISPATCHER_PAPER =
-            new CommandDispatcher<>(new ApiMirrorRootNode() {
-                @Override
-                public CommandDispatcher<CommandSourceStack> getDispatcher() {
-                    return MixinConstants.VANILLA_DISPATCHER;
-                }
-            });
+        new CommandDispatcher<>(new ApiMirrorRootNode() {
+            @Override
+            public CommandDispatcher<CommandSourceStack> getDispatcher() {
+                return MixinConstants.VANILLA_DISPATCHER;
+            }
+        });
 
     public static final Set<Class<? extends Packet<?>>> FAIL_IGNORED_PACKETS = Set.of(
         ClientboundSetTitleTextPacket.class, ClientboundSetSubtitleTextPacket.class,
@@ -32,5 +32,6 @@ public final class MixinConstants {
         ClientboundSetEquipmentPacket.class, ClientboundSetCursorItemPacket.class
     );
 
-    private MixinConstants() {}
+    private MixinConstants() {
+    }
 }

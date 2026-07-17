@@ -15,7 +15,7 @@ final class LoggerAdapterSLF4J extends LoggerAdapterAbstract {
 
         String name = Bootstrapper.ID + "$" + classLoader.getName();
         if (!label.equals("mixin")) name += "$" + label;
-        
+
         this.logger = LoggerFactory.getLogger(name);
     }
 

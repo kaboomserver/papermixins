@@ -14,7 +14,7 @@ import pw.kaboom.papermixins.pluginmixin.PluginMixin;
 @Mixin(Commandignore.class)
 public abstract class CommandignoreMixin {
     @WrapOperation(method = "run",
-            at = @At(value = "INVOKE", target = "Lcom/earth2me/essentials/User;isIgnoredPlayer(Lcom/earth2me/essentials/IUser;)Z"))
+        at = @At(value = "INVOKE", target = "Lcom/earth2me/essentials/User;isIgnoredPlayer(Lcom/earth2me/essentials/IUser;)Z"))
     private boolean run$isIgnoredPlayer(final User user,
                                         final @SuppressWarnings("deprecation") IUser toCheck,
                                         final Operation<Boolean> original,

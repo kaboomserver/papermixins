@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
-import org.spongepowered.asm.mixin.Unique;
 
 public final class DepthAwareCodec<T> implements Codec<T> {
     private final ThreadLocal<Integer> depth = ThreadLocal.withInitial(() -> 0);
