@@ -19,9 +19,9 @@ public abstract class CommandBlockEntityBaseCommandBlockImplMixin {
     @Inject(method = "setCommand", at = @At("TAIL"))
     private void onSetCommand(final String command, final CallbackInfo ci) {
         if (StringUtil.isNullOrEmpty(command)
-                || (!this$0.isAutomatic() || this$0.getMode() != CommandBlockEntity.Mode.AUTO)) {
+                || (!this.this$0.isAutomatic() || this.this$0.getMode() != CommandBlockEntity.Mode.AUTO)) {
             return;
         }
-        ((CommandBlockEntityAccessor) this$0).invokeScheduleTick();
+        ((CommandBlockEntityAccessor) this.this$0).invokeScheduleTick();
     }
 }

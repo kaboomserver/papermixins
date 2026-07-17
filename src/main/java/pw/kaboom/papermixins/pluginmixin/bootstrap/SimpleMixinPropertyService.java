@@ -42,12 +42,12 @@ public final class SimpleMixinPropertyService implements IGlobalPropertyService 
         public boolean equals(final Object obj) {
             if (!(obj instanceof BlackBoardKey(final String otherKey))) return false;
 
-            return Objects.equals(key, otherKey);
+            return Objects.equals(this.key, otherKey);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hashCode(key);
+            return Objects.hashCode(this.key);
         }
 
         @Override

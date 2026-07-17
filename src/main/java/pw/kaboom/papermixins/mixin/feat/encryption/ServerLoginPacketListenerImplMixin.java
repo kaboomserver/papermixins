@@ -52,7 +52,7 @@ public abstract class ServerLoginPacketListenerImplMixin {
 
         @WrapMethod(method = "run")
         private void runAuth(final Operation<Void> original) {
-            final ServerLoginPacketListenerImplAccessor accessor = ((ServerLoginPacketListenerImplAccessor) this$0);
+            final ServerLoginPacketListenerImplAccessor accessor = ((ServerLoginPacketListenerImplAccessor) this.this$0);
             if (accessor.getServer().usesAuthentication()) {
                 original.call();
                 return;

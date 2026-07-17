@@ -72,7 +72,7 @@ public final class PluginMixinSeparationClassLoader extends ClassLoader {
 
         if (shouldInherit(name)) return this.getClass().getClassLoader().loadClass(name);
 
-        return shouldDelegate(name) ? reloadFromRoot(name)
+        return shouldDelegate(name) ? this.reloadFromRoot(name)
                 : super.loadClass(name, resolve);
     }
 

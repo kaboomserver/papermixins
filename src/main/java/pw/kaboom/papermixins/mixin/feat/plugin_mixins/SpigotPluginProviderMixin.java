@@ -26,7 +26,7 @@ public abstract class SpigotPluginProviderMixin {
                     "Lio/papermc/paper/plugin/provider/entrypoint/DependencyContext;)V"),
             index = 0)
     private ClassLoader createInstance$newPluginClassLoader(final ClassLoader parent) {
-        final String pluginName = description.getName();
+        final String pluginName = this.description.getName();
         final List<LoadedPluginMixin> pluginMixins = PluginMixinLoader.getPluginMixins(pluginName);
         if (pluginMixins == null) return parent;
 

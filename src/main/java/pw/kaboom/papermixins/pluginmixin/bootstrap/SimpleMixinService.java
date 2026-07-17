@@ -19,7 +19,7 @@ public abstract class SimpleMixinService implements IMixinService {
 
     @Override
     public synchronized ILogger getLogger(final String name) {
-        return loggerCache.computeIfAbsent(name, this::createLogger);
+        return this.loggerCache.computeIfAbsent(name, this::createLogger);
     }
 
     @Override

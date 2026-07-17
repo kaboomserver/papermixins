@@ -80,8 +80,8 @@ public final class Bootstrapper extends SimpleMixinService
 
     @Override
     public void init() {
-        if (transformerFactory == null) throw new IllegalStateException("Didn't receive an IMixinTransformerFactory");
-        this.mixinTransformer = transformerFactory.createTransformer();
+        if (this.transformerFactory == null) throw new IllegalStateException("Didn't receive an IMixinTransformerFactory");
+        this.mixinTransformer = this.transformerFactory.createTransformer();
         instance = this;
     }
 
@@ -161,12 +161,12 @@ public final class Bootstrapper extends SimpleMixinService
 
     @Override
     public ClassNode getClassNode(final String name) throws ClassNotFoundException, IOException {
-        return getClassNode(name, false);
+        return this.getClassNode(name, false);
     }
 
     @Override
     public ClassNode getClassNode(final String name, final boolean runTransformers) throws ClassNotFoundException, IOException {
-        return getClassNode(name, runTransformers, 0);
+        return this.getClassNode(name, runTransformers, 0);
     }
 
     private static InputStream findClassBytesRecursive(ClassLoader loader, final String name) {
