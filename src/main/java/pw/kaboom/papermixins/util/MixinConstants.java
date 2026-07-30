@@ -29,7 +29,8 @@ public final class MixinConstants {
         ClientboundContainerSetContentPacket.class, ClientboundContainerSetSlotPacket.class,
         ClientboundLevelChunkWithLightPacket.class, ClientboundBlockEntityDataPacket.class,
         ClientboundSetPlayerInventoryPacket.class, ClientboundSetObjectivePacket.class,
-        ClientboundSetEquipmentPacket.class, ClientboundSetCursorItemPacket.class
+        ClientboundSetEquipmentPacket.class, ClientboundSetCursorItemPacket.class,
+        ClientboundUpdateAttributesPacket.class
     );
 
     private MixinConstants() {
