@@ -8,7 +8,7 @@ mixinextras = "0.5.3"
 
 essentialsx = "2.22.1-SNAPSHOT"
 fastasyncworldedit = "2.15.3"
-cloudburstmc-protocol = "3.0.0.Beta12-20260602.165120-25"
+cloudburstmc-protocol = "3.0.0.Beta13-20260729.224915-5"
 
 [libraries]
 ignite = { module = "space.vectrix.ignite:ignite-api", version.ref = "ignite" }
