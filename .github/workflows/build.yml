@@ -1,29 +1,76 @@
 name: Gradle CI
-
-on:
-  push:
-  pull_request:
+on: [push, pull_request, workflow_dispatch]
+permissions: {}
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-java@v5
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          distribution: 'temurin'
-          java-version: '25'
+          persist-credentials: false
 
-      # We use v5 instead of v6. See https://blog.gradle.org/github-actions-for-gradle-v6
-      - uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
+      - name: Set up Java
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5.7.0
         with:
-          gradle-version: 'current'
+          distribution: temurin
+          java-version: 25
+          cache: gradle
 
       - name: Build
         run: gradle --no-daemon build
 
-      - uses: actions/upload-artifact@v7
+      - name: Upload artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: Artifacts
           path: build/libs/paper-mixins-master.jar
+          if-no-files-found: error
+          archive: false
+
+  attestation:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    permissions:
+      id-token: write
+      attestations: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: dist/
+          merge-multiple: true
+
+      - name: Attest
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
+        with:
+          subject-path: dist/
+
+  release:
+    if: github.event.repository.fork == false && contains(github.ref_name, '.')
+    needs: attestation
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      TAG_NAME: ${{ github.event.repository.name }}-${{ github.ref_name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Download artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: dist/
+          merge-multiple: true
+
+      - name: Create release
+        run: |
+          gh release delete "$TAG_NAME" --cleanup-tag || true
+          gh release create "$TAG_NAME" --title "$TAG_NAME" --target "$GITHUB_SHA" dist/*.jar
