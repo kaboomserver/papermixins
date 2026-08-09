@@ -18,7 +18,15 @@ public final class DepthAwareCodec<T> implements Codec<T> {
 
     @Override
     public <S> DataResult<S> encode(final T input, final DynamicOps<S> ops, final S prefix) {
-        return this.codec.encode(input, ops, prefix);
+        final int newDepth = this.depth.get() + 1;
+        if (newDepth > this.maxDepth) return DataResult.error(() -> "Depth limit exceeded");
+        this.depth.set(newDepth);
+
+        try {
+            return this.codec.encode(input, ops, prefix);
+        } finally {
+            this.depth.set(this.depth.get() - 1);
+        }
     }
 
     @Override
