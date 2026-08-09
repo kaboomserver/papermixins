@@ -28,6 +28,7 @@
     "fix.empty_tab.PlayerListMixin",
     "fix.exploit.beehive_uncapped_bees.BeehiveBlockEntityOccupantMixin",
     "fix.exploit.cmd_block_uncaught_err.BaseCommandBlockMixin",
+    "fix.exploit.oversized_component.ComponentSerializationMixin",
     "fix.exploit.offhand_crash.ServerGamePacketListenerImplMixin",
     "fix.exploit.oversized_component.ClientboundBossEventPacketMixin",
     "fix.exploit.oversized_component.PacketMixin",
