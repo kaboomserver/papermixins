@@ -49,7 +49,7 @@ jobs:
           subject-path: dist/
 
   release:
-    if: github.event.repository.fork == false && contains(github.ref_name, '.')
+    if: github.event.repository.fork == false && !startsWith(github.ref_name, 'dependabot') && contains(github.ref_name, '.')
     needs: attestation
     runs-on: ubuntu-slim
     timeout-minutes: 15
