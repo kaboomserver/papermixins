@@ -28,9 +28,9 @@
     "fix.empty_tab.PlayerListMixin",
     "fix.exploit.beehive_uncapped_bees.BeehiveBlockEntityOccupantMixin",
     "fix.exploit.cmd_block_uncaught_err.BaseCommandBlockMixin",
-    "fix.exploit.oversized_component.ComponentSerializationMixin",
     "fix.exploit.offhand_crash.ServerGamePacketListenerImplMixin",
     "fix.exploit.oversized_component.ClientboundBossEventPacketMixin",
+    "fix.exploit.oversized_component.ComponentSerializationMixin",
     "fix.exploit.oversized_component.PacketMixin",
     "fix.exploit.oversized_component.ServerCommonPacketListenerImplMixin",
     "fix.exploit.oversized_component.Varint21LengthFieldPrependerMixin",
@@ -42,7 +42,10 @@
     "fix.test_log_spam.TestBlockEntityMixin",
     "perf.command_block_optimization.CommandBlockEntityBaseCommandBlockImplMixin",
     "perf.command_block_optimization.CommandBlockMixin",
-    "perf.command_block_optimization.accessor.CommandBlockEntityAccessor"
+    "perf.command_block_optimization.accessor.CommandBlockEntityAccessor",
+    "perf.lazy_op_commands.DeOpCommandsMixin",
+    "perf.lazy_op_commands.OpCommandMixin",
+    "perf.lazy_op_commands.PlayerListMixin"
   ],
   "injectors": {
     "defaultRequire": 1
