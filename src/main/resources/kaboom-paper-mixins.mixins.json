@@ -37,6 +37,8 @@
     "fix.exploit.oversized_data_commands.DataCommandsMixin",
     "fix.exploit.projectile_huge_power.AbstractHurtingProjectileMixin",
     "fix.exploit.recursive_translate.TranslatableContentsMixin",
+    "fix.exploit.too_many_attributes.AttributeInstanceMixin",
+    "fix.exploit.too_many_attributes.ItemAttributeModifiersMixin",
     "fix.exploit.uncapped_deathtime.LivingEntityMixin",
     "fix.exploit.unloaded_block_packets.ServerGamePacketListenerImplMixin",
     "fix.test_log_spam.TestBlockEntityMixin",
