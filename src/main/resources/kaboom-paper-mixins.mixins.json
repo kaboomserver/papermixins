@@ -21,6 +21,8 @@
     "feat.plugin_mixins.LibraryLoaderMixin",
     "feat.plugin_mixins.PluginClassLoaderMixin",
     "feat.plugin_mixins.SpigotPluginProviderMixin",
+    "feat.reconnect_penalty.PlayerListMixin",
+    "feat.reconnect_penalty.PrepareSpawnTaskMixin",
     "fix.command_block_restrictions.CloneCommandsMixin",
     "fix.command_block_restrictions.FillCommandMixin",
     "fix.command_block_restrictions.StructureTemplateMixin",
