@@ -40,15 +40,17 @@ public abstract class PrepareSpawnTaskMixin {
         if (!(remoteAddress instanceof final InetSocketAddress inetSocket)
             || inetSocket.isUnresolved()
             || inetSocket.getAddress().isLoopbackAddress()) return;
+
+        final long now = System.currentTimeMillis();
         final ReconnectPenalty.Penalty defaultPenalty = new ReconnectPenalty.Penalty(
             new AtomicInteger(ReconnectPenalty.BASE_PENALTY),
-            new AtomicLong(System.currentTimeMillis())
+            new AtomicLong(now)
         );
         final ReconnectPenalty.Penalty mapPenalty = PENALTY_MAP.computeIfAbsent(inetSocket.getAddress(), _ -> defaultPenalty);
 
-        mapPenalty.touched().setRelease(System.currentTimeMillis());
+        mapPenalty.touched().setRelease(now);
 
-        this.papermixins$lastTick = System.currentTimeMillis();
+        this.papermixins$lastTick = now;
         this.papermixins$penalty = mapPenalty == defaultPenalty
             ? 0
             : mapPenalty.penalty().getAndUpdate(penalty -> Math.min(ReconnectPenalty.MAX_PENALTY, (int) (penalty * PENALTY_MULTIPLIER)));
@@ -58,7 +60,11 @@ public abstract class PrepareSpawnTaskMixin {
     private boolean wrapTick(final Operation<Boolean> original) {
         if (this.papermixins$penalty <= 0) return original.call();
         final long now = System.currentTimeMillis();
-        this.papermixins$penalty -= ((now - this.papermixins$lastTick) / 50);
+
+        final long ticks = (now - this.papermixins$lastTick) / 50;
+        if (ticks <= 0) return false;
+
+        this.papermixins$penalty -= ticks;
         this.papermixins$lastTick = now;
         return false;
     }
