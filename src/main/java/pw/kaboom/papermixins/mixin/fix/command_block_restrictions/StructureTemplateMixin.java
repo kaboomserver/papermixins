@@ -11,7 +11,7 @@ import pw.kaboom.papermixins.util.RestrictionUtil;
 
 @Mixin(StructureTemplate.class)
 public abstract class StructureTemplateMixin {
-    @ModifyExpressionValue(method = "fillFromWorld",
+    @ModifyExpressionValue(method = "lambda$fillFromWorld$1",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/TagValueOutput;buildResult()" +
             "Lnet/minecraft/nbt/CompoundTag;"))
     private static CompoundTag fillFromWorld$saveWithId(final CompoundTag original,
