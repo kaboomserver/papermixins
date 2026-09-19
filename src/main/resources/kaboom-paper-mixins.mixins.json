@@ -41,6 +41,7 @@
     "fix.exploit.recursive_translate.TranslatableContentsMixin",
     "fix.exploit.too_many_attributes.AttributeInstanceMixin",
     "fix.exploit.too_many_attributes.ItemAttributeModifiersMixin",
+    "fix.exploit.too_many_posteffects.ServerPlayerMixin",
     "fix.exploit.uncapped_deathtime.LivingEntityMixin",
     "fix.exploit.unloaded_block_packets.ServerGamePacketListenerImplMixin",
     "fix.test_log_spam.TestBlockEntityMixin",
