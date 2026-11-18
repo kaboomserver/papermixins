@@ -5,6 +5,7 @@
   "required": true,
   "plugin": "pw.kaboom.papermixins.mixin.PaperMixinsMixinPlugin",
   "mixins": [
+    "feat.always_close_dialog.CommonDialogDataMixin",
     "feat.always_close_dialog.DialogCommandMixin",
     "feat.disable_persistent_data.CachedUserNameToIdResolverMixin",
     "feat.disable_persistent_data.StoredUserListMixin",
