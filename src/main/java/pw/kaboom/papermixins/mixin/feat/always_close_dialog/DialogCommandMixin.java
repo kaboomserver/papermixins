@@ -11,15 +11,15 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(DialogCommand.class)
 public abstract class DialogCommandMixin {
     @ModifyVariable(method = "showDialog", at = @At("HEAD"), name = "dialog", argsOnly = true)
-    private static Holder<Dialog> showDialog(Holder<Dialog> dialog) {
+    private static Holder<Dialog> showDialog(final Holder<Dialog> dialog) {
         return Holder.direct(papermixins$editDialog(dialog.value()));
     }
 
     @Unique
-    private static Dialog papermixins$editDialog(Dialog old) {
-        CommonDialogData oldCommon = old.common();
+    private static Dialog papermixins$editDialog(final Dialog old) {
+        final CommonDialogData oldCommon = old.common();
 
-        CommonDialogData newCommon = new CommonDialogData(
+        final CommonDialogData newCommon = new CommonDialogData(
             oldCommon.title(),
             oldCommon.externalTitle(),
             true,
@@ -30,22 +30,22 @@ public abstract class DialogCommandMixin {
         );
 
         return switch (old) {
-            case ConfirmationDialog d -> new ConfirmationDialog(newCommon, d.yesButton(), d.noButton());
-            case NoticeDialog d -> new NoticeDialog(newCommon, d.action());
-            case DialogListDialog d -> new DialogListDialog(
+            case final ConfirmationDialog d -> new ConfirmationDialog(newCommon, d.yesButton(), d.noButton());
+            case final NoticeDialog d -> new NoticeDialog(newCommon, d.action());
+            case final DialogListDialog d -> new DialogListDialog(
                 newCommon,
                 d.dialogs(),
                 d.exitAction(),
                 d.columns(),
                 d.buttonWidth()
             );
-            case MultiActionDialog d -> new MultiActionDialog(
+            case final MultiActionDialog d -> new MultiActionDialog(
                 newCommon,
                 d.actions(),
                 d.exitAction(),
                 d.columns()
             );
-            case ServerLinksDialog d -> new ServerLinksDialog(
+            case final ServerLinksDialog d -> new ServerLinksDialog(
                 newCommon,
                 d.exitAction(),
                 d.columns(),
