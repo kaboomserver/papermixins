@@ -12,6 +12,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class DialogCommandMixin {
     @ModifyVariable(method = "showDialog", at = @At("HEAD"), name = "dialog", argsOnly = true)
     private static Holder<Dialog> showDialog(final Holder<Dialog> dialog) {
+        if (dialog.value().common().canCloseWithEscape()) {
+            return dialog;
+        }
         return Holder.direct(papermixins$editDialog(dialog.value()));
     }
 
