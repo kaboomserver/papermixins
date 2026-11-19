@@ -25,12 +25,6 @@ public final class RestrictionUtil {
         }
     }
 
-    /**
-     * create a closeable {@link Dialog}
-     *
-     * @param old the {@link Dialog} to make closeable
-     * @return a new {@link Dialog} if it's not closeable, otherwise {@code old}
-     */
     public static Dialog applyDialogCloseable(final Dialog old) {
         if (old.common().canCloseWithEscape()) {
             return old;
