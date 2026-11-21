@@ -6,7 +6,7 @@ import net.minecraft.server.dialog.Dialog;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import pw.kaboom.papermixins.util.RestrictionUtil;
+import pw.kaboom.papermixins.util.DialogUtil;
 
 @Mixin(DialogCommand.class)
 public abstract class DialogCommandMixin {
@@ -15,6 +15,6 @@ public abstract class DialogCommandMixin {
         if (dialog.value().common().canCloseWithEscape()) {
             return dialog;
         }
-        return Holder.direct(RestrictionUtil.applyDialogCloseable(dialog.value()));
+        return Holder.direct(DialogUtil.modifyDialog(dialog.value()));
     }
 }
