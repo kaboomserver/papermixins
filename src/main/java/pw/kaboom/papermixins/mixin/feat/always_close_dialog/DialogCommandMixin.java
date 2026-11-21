@@ -11,7 +11,7 @@ import pw.kaboom.papermixins.util.RestrictionUtil;
 @Mixin(DialogCommand.class)
 public abstract class DialogCommandMixin {
     @ModifyVariable(method = "showDialog", at = @At("HEAD"), name = "dialog", argsOnly = true)
-    private static Holder<Dialog> showDialog(final Holder<Dialog> dialog) {
+    private static Holder<Dialog> modifyShowDialog(final Holder<Dialog> dialog) {
         if (dialog.value().common().canCloseWithEscape()) {
             return dialog;
         }

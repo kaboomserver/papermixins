@@ -27,7 +27,6 @@ public final class RestrictionUtil {
 
     public static Dialog applyDialogCloseable(final Dialog old) {
         final CommonDialogData oldCommon = old.common();
-        
         if (oldCommon.canCloseWithEscape()) {
             return old;
         }
