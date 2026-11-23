@@ -11,12 +11,11 @@ import net.minecraft.server.dialog.body.PlainMessage;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: hm, is it worth it to have a whole utility class just for this....
 public final class DialogUtil {
     private static final DialogBody ANTI_PHISH = new PlainMessage(
         Component.empty()
             .append(Component.object(new AtlasSprite(AtlasIds.GUI, Identifier.withDefaultNamespace("icon/unseen_notification"))))
-            .append(Component.literal(" This dialog is not created by the server.")),
+            .append(Component.literal(" This dialog is not created by the server. Do not enter credentials or personal information.")),
         PlainMessage.DEFAULT_WIDTH
     );
 
