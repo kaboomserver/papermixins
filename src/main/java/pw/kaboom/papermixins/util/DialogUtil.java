@@ -1,5 +1,6 @@
 package pw.kaboom.papermixins.util;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.data.AtlasIds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.objects.AtlasSprite;
@@ -16,7 +17,7 @@ public final class DialogUtil {
         Component.empty()
             .append(Component.object(new AtlasSprite(AtlasIds.GUI, Identifier.withDefaultNamespace("icon/unseen_notification"))))
             .append(Component.literal(" This dialog is not created by the server or Mojang. " +
-                "Do not enter credentials or personal information.")),
+                "Do not enter credentials or personal information.").withStyle(ChatFormatting.DARK_RED)),
         PlainMessage.DEFAULT_WIDTH
     );
 
