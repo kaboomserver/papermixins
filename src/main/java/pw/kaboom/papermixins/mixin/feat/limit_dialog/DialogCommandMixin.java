@@ -1,4 +1,4 @@
-package pw.kaboom.papermixins.mixin.feat.always_close_dialog;
+package pw.kaboom.papermixins.mixin.feat.limit_dialog;
 
 import net.minecraft.core.Holder;
 import net.minecraft.server.commands.DialogCommand;
