@@ -5,8 +5,8 @@
   "required": true,
   "plugin": "pw.kaboom.papermixins.mixin.PaperMixinsMixinPlugin",
   "mixins": [
-    "feat.always_close_dialog.DialogCommandMixin",
-    "feat.always_close_dialog.ShowDialogClickEventMixin",
+    "feat.limit_dialog.DialogCommandMixin",
+    "feat.limit_dialog.ShowDialogClickEventMixin",
     "feat.disable_persistent_data.CachedUserNameToIdResolverMixin",
     "feat.disable_persistent_data.StoredUserListMixin",
     "feat.disable_username_validation.CraftPlayerProfileMixin",
