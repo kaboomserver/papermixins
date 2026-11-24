@@ -21,7 +21,7 @@ public abstract class DialogCommandMixin {
     @Unique
     private static final long RATELIMIT_NANOS = TimeUnit.SECONDS.toNanos(1);
     @Unique
-    private static final Map<ServerPlayer, Long> papermixins$simpleFuckingRatelimit = new WeakHashMap<>();
+    private static final Map<ServerPlayer, Long> papermixins$ratelimit = new WeakHashMap<>();
 
     @ModifyVariable(method = "showDialog", at = @At("HEAD"), name = "dialog", argsOnly = true)
     private static Holder<Dialog> modifyShowDialog(final Holder<Dialog> dialog) {
@@ -38,15 +38,15 @@ public abstract class DialogCommandMixin {
         final long now = System.nanoTime();
         final List<ServerPlayer> nextTargets = new ArrayList<>();
         for (final ServerPlayer target : targets) {
-            final Long lastUsed = papermixins$simpleFuckingRatelimit.get(target);
+            final Long lastUsed = papermixins$ratelimit.get(target);
 
             if (lastUsed != null && (now - lastUsed) < RATELIMIT_NANOS) {
                 continue;
             }
 
-            papermixins$simpleFuckingRatelimit.put(target, now);
+            papermixins$ratelimit.put(target, now);
             nextTargets.add(target);
         }
-        return original.call(sender,nextTargets,dialog);
+        return original.call(sender, nextTargets, dialog);
     }
 }
